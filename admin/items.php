@@ -5,7 +5,6 @@
 ob_start();
 session_start();
 $pageTitle = 'Items';
-
 if (isset($_SESSION['Username'])) {
     include 'init.php';
     //If the get page is exist get the page else get main page "Manage"

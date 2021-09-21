@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "moomen";
-$password = "9124279";
+$username = "root";
+$password = "";
 $dbname = "ecoca";
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -24,7 +24,7 @@ try {
             . $row['itemID'] . "' id='edit-btn' class='control-button btn btn-success'>Edit</a> <a href='items.php?page=Delete&itemID="
             . $row['itemID'] . "' id='delete-btn' class='control-button btn btn-danger confirm'>Delete</a>";*/
         $img = $row['Image'];
-        $image = "<img src='uploads/$img' alt='' width='50px' height='50px' >";
+        $image = "<img src='../uploads/$img' alt='' width='50px' height='50px' >";
         $data["items"][] = [
             'itemID' => $row['itemID'],
             'Name' => $row['Name'],

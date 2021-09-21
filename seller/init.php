@@ -1,12 +1,14 @@
 <!--This file for all path folders in my project-->
 <?php
 
-$lang = 'includes/languages/';
+$lang = '../includes/languages/';
 $tpl = 'includes/templates/';
 $func = 'includes/functions/';
 $lib = 'includes/libraries/';
 $img = 'layout/images/';
 $css = 'layout/css/';
+$cssboot = '../layout/css/';
+$jsboot = '../layout/js/';
 $js = 'layout/js/';
 $foaw = 'ttps://kit.fontawesome.com/deeee70e6c.js';
 

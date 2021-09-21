@@ -2,53 +2,32 @@
 <div class="top-content">
     <div class="container">
         <div class="row">
-            <div class="col-one col-sm-12 col-md-12 col-lg-6">
+            <div class="col-one col-sm-12 col-md-12 col-lg-4">
                 <h4><i class="fa fa-list-alt" aria-hidden="true"> Categories</i></h4>
                 <ul>
-                    <li><label class="checkbox"><input type="checkbox"> Women's Fashion</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Men's Fashion</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Phones & Telecommunication</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Computer, Office & Security</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Women's Fashion</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Men's Fashion</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Phones & Telecommunication</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Computer, Office & Security</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Women's Fashion</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Men's Fashion</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Phones & Telecommunication</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Computer, Office & Security</label></li>
+                    <?php
+                    //print_r(getProducts()) ;
+                    foreach (getCategories() as $row) {
+                        $name = $row['Name'];
+                        $image = $row['Image'];
+                        $categoriesID = $row['ID'];
+                        echo "<a href='category.php?category=$categoriesID'><li><p><span><img src='uploads/$image' alt=" . $image . " height='30px' width='30px'></span> $name</p></li></a>";
+                    } ?>
                 </ul>
             </div>
-            <div class="col-two col-sm-12 col-md-12 col-lg-6">
+            <div class="col-two col-sm-12 col-md-12 col-lg-4">
                 <ul>
                     <li class="row-one-col-tow">
                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
-                                <!--<div class="overlay"></div>-->
-                                <div class="carousel-item active">
-                                    <img src="/seller/layout/images/s-5.webp" class="d-block w-100"
-                                         alt="slide-img">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/seller/layout/images/s-6.webp" class="d-block w-100"
-                                         alt="slide-img">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/seller/layout/images/s-7.webp" class="d-block w-100"
-                                         alt="slide-img">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/seller/layout/images/s-4.webp" class="d-block w-100"
-                                         alt="slide-img">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/seller/layout/images/s-3.webp" class="d-block w-100"
-                                         alt="slide-img">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/seller/layout/images/s-2.webp" class="d-block w-100"
-                                         alt="slide-img">
-                                </div>
+                                <?php
+                                //print_r(getProducts()) ;
+                                foreach (getAds() as $row) {
+                                    $image = $row['Image'];
+                                    $id = $row['ItemID'];
+                                    echo "<div class='carousel-item active'><a href='item.php?itemid=$id'>
+                                    <img src='/uploads/$image' alt='' class='d-block w-100' ></a></div>";
+                                } ?>
                             </div>
 
                             <div class="carousel-indicators">
@@ -75,63 +54,46 @@
                         </div>
                     </li>
                     <li class="row-two-col-tow">
-                        <div class="text-center">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="card-item col-sm-12 col-md-12 col-lg-4">
-                                        <div class="card">
-                                            <img src="/seller/layout/images/slide-3.jpg" class="card-img-top"
-                                                 alt="card-img">
-                                            <div class="card-body">
-                                                <h5>Card title</h5>
-                                                <h6>March 24 2017</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-item col-sm-12 col-md-12 col-lg-4">
-                                        <div class="card">
-                                            <img src="/seller/layout/images/slide-1.jpeg" class="card-img-top"
-                                                 alt="card-img">
-                                            <div class="card-body">
-                                                <h5>Card title</h5>
-                                                <h6>March 24 2017</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-item col-sm-12 col-md-12 col-lg-4">
-                                        <div class="card">
-                                            <img src="/seller/layout/images/slide-2.jpg" class="card-img-top"
-                                                 alt="card-img">
-                                            <div class="card-body">
-                                                <h5>Card title</h5>
-                                                <h6>March 24 2017</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="container">
+                            <div class="row">
+                                <?php
+                                //print_r(getProducts()) ;
+                                foreach (getProductsLimit(4) as $row) {
+                                    $img = $row['Image'];
+                                    $name = $row['Name'];
+                                    $price = $row['Price'];
+                                    $rating = $row['Rating'];
+                                    $itemid = $row['itemID'];
+                                    echo '<div class="item-product col-sm-6 col-md-6 col-lg-3"><a href="item.php?itemid=' . $itemid . '" class="card">';
+                                    echo "<img class='card-img-top' src='uploads/$img' alt=''> <div class='card-body'>";
+                                    echo "<p>$name</p>  <h5>$price$</h5>  </div> </a></div>";
+                                } ?>
                             </div>
                         </div>
                     </li>
+                    <li class="row-three-col-tow">
+                        <img src="uploads/poster.webp" alt="">
+                    </li>
                 </ul>
             </div>
-            <div class="col-three col-sm-12 col-md-12 col-lg-6 text-center">
+            <div class="col-three col-sm-12 col-md-12 col-lg-4 text-center">
                 <div class="login-boy">
-                    <?php if (!isset($_SESSION['Username'])){?>
-                    <img class="account-img" src="/seller/layout/images/account.webp">
-                    <h4>Welcome to EcoExpress</h4>
-                    <div class="account container">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6 col-lg-6 button-col">
-                                <a href="registerUser.php" class="btn btn-info">Join</a>
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-6 button-col">
-                                <a href="login.php" class="btn btn-dark">Sign in</a>
+                    <?php if (!isset($_SESSION['Username'])) { ?>
+                        <img class="account-img" src="/seller/layout/images/account.webp">
+                        <h4>Welcome to EcoExpress</h4>
+                        <div class="account container">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-6 button-col">
+                                    <a href="registerUser.php" class="join-btn btn">Join</a>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-6 button-col">
+                                    <a href="login.php" class="sign-btn btn">Sign in</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php }else{?>
+                    <?php } else { ?>
                         <img class="logo-img" src="layout/images/ecoexpress2.png">
-                    <?php }?>
+                    <?php } ?>
                 </div>
                 <a href=""><img src="/seller/layout/images/p-2.png"></a>
             </div>
@@ -143,62 +105,22 @@
 
 <!--Start Latest post-->
 <div class="latest-post">
-    <div class="container">
+    <div class="body container">
         <div class="row">
-            <div class="col-one col-sm-4 col-md-3 col-lg-2">
-                <a href="" class="card">
-                    <img src="/seller/layout/images/slide-3.jpg" class="card-img-top" alt="card-img">
-                    <div class="card-body">
-                        <h5>Card title</h5>
-                        <h6>March 24 2017</h6>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-4 col-md-3 col-lg-2">
-                <a href="" class="card">
-                    <img src="/seller/layout/images/slide-1.jpeg" class="card-img-top" alt="card-img">
-                    <div class="card-body">
-                        <h5>Card title</h5>
-                        <h6>March 24 2017</h6>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-4 col-md-3 col-lg-2">
-                <a href="" class="card">
-                    <img src="/seller/layout/images/slide-2.jpg" class="card-img-top" alt="card-img">
-                    <div class="card-body">
-                        <h5>Card title</h5>
-                        <h6>March 24 2017</h6>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-4 col-md-3 col-lg-2">
-                <a href="" class="card">
-                    <img src="/seller/layout/images/slide-2.jpg" class="card-img-top" alt="card-img">
-                    <div class="card-body">
-                        <h5>Card title</h5>
-                        <h6>March 24 2017</h6>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-4 col-md-3 col-lg-2">
-                <a href="" class="card">
-                    <img src="/seller/layout/images/slide-2.jpg" class="card-img-top" alt="card-img">
-                    <div class="card-body">
-                        <h5>Card title</h5>
-                        <h6>March 24 2017</h6>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-4 col-md-3 col-lg-2">
-                <a href="" class="card">
-                    <img src="/seller/layout/images/slide-2.jpg" class="card-img-top" alt="card-img">
-                    <div class="card-body">
-                        <h5>Card title</h5>
-                        <h6>March 24 2017</h6>
-                    </div>
-                </a>
-            </div>
+            <?php
+            //print_r(getProducts()) ;
+            foreach (getProducts() as $row) {
+                $img = $row['Image'];
+                $name = $row['Name'];
+                $price = $row['Price'];
+                $rating = $row['Rating'];
+                $itemid = $row['itemID'];
+                echo "<div class='col-sm-4 col-md-3 col-lg-2'> <a href='item.php?itemid=$itemid' class='card' >";
+                /*echo '<div class="col-sm-4 col-md-3 col-lg-2">
+                <a href="item.php?item="  target="_blank" class="card">';*/
+                echo "<img class='card-img-top' src='uploads/$img' alt=''> <div class='card-body'>";
+                echo "<p>$name</p>  <h5>$price$</h5>  </div> </a></div>";
+            } ?>
         </div>
     </div>
 </div>
@@ -256,7 +178,7 @@
             <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="site-info">
                     <a class="navbar-brand"
-                       href="http://tweetytube.epizy.com/"><span>Elite</span><span>Crop</span></a>
+                       href="http://tweetytube.epizy.com/"><span>Eco</span><span>Express</span></a>
                     <p>People are doing business with you because they know, like and trust you, period. The
                         relationship
                         and the experience are what open more doors, close more sales and land you more deals.
@@ -339,3 +261,14 @@
     </div>
 </div>
 <!--End Copy right-->
+<?php
+if (isset($_GET['category'])) {
+    $category = $_GET['category'];
+    if ($category == 1) {
+        include 'category.php';
+    } elseif ($category == 2) {
+        include 'category.php';
+    }
+}
+
+?>

@@ -1,5 +1,5 @@
 <?php
-/*$target_dir = "C:\\xampp\\htdocs\\ecommerce\\admin\\uploads\\";
+/*$target_dir = "C://xampp//htdocs//ecommerce//admin//uploads//";
 $target_file = $target_dir . basename($_FILES['fileToUpload']['name']);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -51,6 +51,7 @@ if (0 < $_FILES['fileToUpload']['error']) {
     echo 'Error: ' . $_FILES['fileToUpload']['error'] . '<br>';
 } else {
     $imageName = $_FILES['fileToUpload']['name'];
-    move_uploaded_file($_FILES['fileToUpload']['tmp_name'], 'C:\\xampp\\htdocs\\ecommerce\\admin\\uploads\\' . $_FILES['fileToUpload']['name']);
+    $path = 'C:/Users/mmsss/PhpstormProjects/ecommerce/uploads/'.$imageName;
+    move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $path);
 
 }

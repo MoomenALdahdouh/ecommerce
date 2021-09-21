@@ -99,7 +99,6 @@ if (isset($_SESSION['GroupID'])) {
             <br>
         </div>
         <?php
-        //include 'page.php';
     } else {
         //echo 'You are not Authorized to view this page';
         header('location:login.php');

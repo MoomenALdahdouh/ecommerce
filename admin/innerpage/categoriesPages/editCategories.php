@@ -1,6 +1,6 @@
 <?php
 $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0;
-$stmt = $conn->prepare("SELECT * FROM categoris WHERE ID = ? LIMIT 1");
+$stmt = $conn->prepare("SELECT * FROM categories WHERE ID = ? LIMIT 1");
 $stmt->execute(array($id));
 $count = $stmt->rowCount();
 $row = $stmt->fetch();

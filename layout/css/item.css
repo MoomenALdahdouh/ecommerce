@@ -1,0 +1,203 @@
+.item {
+    margin: 16px;
+    padding: 30px;
+    background-color: #FFF;
+    border-radius: 16px;
+}
+
+.item .col-one {
+    width: 30%;
+}
+
+.item .col-two {
+    width: 55%;
+    padding: 30px;
+}
+
+.item .col-three {
+    width: 15%;
+}
+
+.item .col-three a {
+    color: #1a1e21;
+    text-decoration: none;
+}
+
+.item .col-three .card-body {
+    margin: 8px;
+    padding: 0;
+}
+
+.item .col-one img {
+    width: 100%;
+    height: 400px;
+    object-fit: scale-down;
+}
+
+.item .col-three img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+.item .col-two .item-details .rating-body{
+    display: flex;
+}
+
+.item .col-two .item-details .rating-body:hover + div {
+    display: block;
+}
+
+.item .col-two .rating-detail-card {
+    display: none;
+}
+.item .col-two .rating-detail-card:hover {
+    display: flow-root;
+}
+.item .col-two .container {
+    padding: 0 50px 0 0;
+}
+.rating-value{
+    padding: 13px 0 0 10px;
+}
+#input-quantity{
+    width: 50px;
+    background: #c7c7c7;
+}
+
+.buy-button{
+    background: #f83b00;
+    color: #FFF;
+}
+.cart-button{
+    background: #f89500;
+    color: #FFF;
+}
+.wish-button{
+    background: #d3d3d3;
+    color: #000000;
+}
+
+/*Rating*/
+.badge {
+    font-size: 25px;
+    font-weight: 200
+}
+
+.badge i {
+    font-size: 20px;
+    font-weight: 200
+}
+
+.about-rating {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 10px
+}
+
+.total-ratings {
+    font-size: 12px
+}
+
+.bg-custom {
+    background-color: #b7dd29 !important
+}
+
+.text-custom {
+    color: #b7dd29 !important
+}
+
+.progress {
+    margin-top: 2px;
+    border-radius: 0;
+    padding-left: 0;
+}
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0;
+}
+
+.rate:not(:checked) > input {
+    position: absolute;
+    top: -9999px;
+}
+
+.rate:not(:checked) > label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rate > input:checked ~ label {
+    color: #ffc700;
+}
+
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;
+}
+
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+/*<!--End Latest post-->*/
+.latest-item{
+    margin: 16px;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #FFF;
+}
+.latest-item .container{
+    margin: 0;
+    padding: 0;
+}
+.latest-item img{
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.latest-item a{
+    text-decoration: none;
+    color: #1a1e21;
+}
+
+
+/*<!--End Latest post-->*/
+/*Model message*/
+#modal-message a{
+    color: #1a1e21;
+    text-decoration: none;
+}
+
+#modal-message .item-product{
+    margin: 5px;
+    padding: 0;
+}
+#modal-message img{
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+#modal-message h3{
+    color: #FFF;
+}
+#modal-message p{
+    margin: 0;
+    padding: 0;
+}
+/*Model message*/

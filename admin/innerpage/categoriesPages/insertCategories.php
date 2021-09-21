@@ -27,12 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     if (empty($formErrors)) {
         //Check user is exists
-        $count = checkItem('name', 'categoris', $name);
+        $count = checkItem('name', 'categories', $name);
         if ($count > 0) {
             $error = 'This Category <strong>' . $name . '</strong> already exists';
             redirect2Page('Categories', 'categories.php', $error, 4);
         } else {
-            $stmt = $conn->prepare("INSERT INTO categoris(Name, Description,Ordering, Visibility,Allow_Comment,Allow_Ads) VALUES(:name,:description,:ordering,:visibility,:commenting,:ads)");
+            $stmt = $conn->prepare("INSERT INTO categories(Name, Description,Ordering, Visibility,Allow_Comment,Allow_Ads) VALUES(:name,:description,:ordering,:visibility,:commenting,:ads)");
             if ($stmt->execute(array(
                 'name' => $name,
                 'description' => $description,

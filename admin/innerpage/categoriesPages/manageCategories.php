@@ -17,7 +17,7 @@ if ($sort = 'DESC'){
     $activeAsc = 'sort-class';
 }*/
 
-$stmt = $conn->prepare("SELECT * FROM categoris ORDER BY Ordering $sort");
+$stmt = $conn->prepare("SELECT * FROM categories ORDER BY Ordering $sort");
 $stmt->execute();
 $rows = $stmt->fetchAll(); ?>
     <h1>Manage Categories</h1>

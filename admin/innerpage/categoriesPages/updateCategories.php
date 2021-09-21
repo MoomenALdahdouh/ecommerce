@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     if (empty($formErrors)) {
         //Check user is exists
-        $stmt = $conn->prepare("UPDATE categoris SET Name = ?, Description = ?,Ordering = ?, Visibility = ?,Allow_Comment = ?,Allow_Ads = ? WHERE ID = ?");
+        $stmt = $conn->prepare("UPDATE categories SET Name = ?, Description = ?,Ordering = ?, Visibility = ?,Allow_Comment = ?,Allow_Ads = ? WHERE ID = ?");
         //echo "$name, $description, $ordering, $visibility, $commenting, $ads)";
         if ($stmt->execute(array($name, $description, $ordering, $visibility, $commenting, $ads, $id))) {
             echo "<div class='alert alert-success'>" . $stmt->rowCount() . 'Successfully Update</div>';

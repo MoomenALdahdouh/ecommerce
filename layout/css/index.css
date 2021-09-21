@@ -5,11 +5,17 @@ body{
 .top-content{
     margin-top: 30px;
 }
+
+/*.top-content .row{
+    height: 600px;
+}*/
+
 .top-content .col-one{
     background-color: #FFF;
     border-radius: 8px;
     padding: 16px;
     width: 20%;
+    overflow-y: auto;
 }
 .top-content .col-two{
     width: 60%;
@@ -21,11 +27,14 @@ body{
     width: 20%;
 }
 
-.top-content .col-two .row-one-col-tow{
-    height: 55%;
+.top-content .col-one a{
+    font-size: 13px;
+    text-decoration: none;
+    color: #1a1e21;
 }
-.top-content .col-two .row-two-col-tow{
-    height: 45%;
+.top-content .col-one ul li:hover{
+    font-size: 15px;
+    color: #ff1500;
 }
 .top-content .col-three .button-col{
     margin: 0;
@@ -47,13 +56,27 @@ body{
     width: 70%;
 }
 
+.top-content .col-three .join-btn{
+    background-color: #1a1e21;
+    color: #FFF;
+    font-size: 0.9vw;
+}
+.top-content .col-three .sign-btn{
+    background-color: #f2f2f2;
+    font-size: 0.9vw;
+}
+
 .top-content .col-three h4{
     margin-bottom: 20px;
     margin-top: 10px;
+    font-size: 1.5vw;
 }
-
+.top-content .col-one h4{
+    margin-bottom: 20px;
+}
 .top-content .col-one ul li{
-    margin: 12px 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .top-content ul{
@@ -64,11 +87,6 @@ body{
 
 .top-content .col {
     flex: none;
-}
-
-.top-content .latest-post .card-item{
-    padding: 0;
-    margin: 0;
 }
 /*End Top Content*/
 /*Start Slider*/
@@ -108,6 +126,15 @@ body{
         left: 0;
         right: 0;
     }
+
+    /*.top-content .col-one{
+        background-color: #FFF;
+        border-radius: 8px;
+        padding: 16px;
+        width: 20%;
+        overflow-y: auto;
+        max-height: 400px;
+    }*/
 }
 
 .carousel-inner h1 span {
@@ -117,56 +144,60 @@ body{
 }
 
 .top-content .row-two-col-tow {
-    margin-top: 20px;
+    margin-top: 10px;
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 5px 16px;
 }
 
-.top-content .row-two-col-tow a{
-    text-decoration: none;
+.top-content .row-two-col-tow .container{
+    margin: 0;
+    padding: 0;
+}
+.top-content .item-product {
+    padding: 0;
+    margin: 0;
 }
 
 .top-content.row-two-col-tow .card {
-    margin-bottom: 30px;
+    padding: 0;
+    margin: 0;
 }
 
 .top-content.row-two-col-tow .card:hover {
     transform: scale(1.03);
 }
 
-
-.top-content.row-two-col-tow h1 {
-    font-weight: bold;
-    color: #000;
+.top-content .row-two-col-tow .card img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
-.top-content.row-two-col-tow .header p {
-    font-size: 18px;
-    color: #666666;
-    line-height: 2;
-    margin: 0 auto 50px;
-}
-
-.top-content.row-two-col-tow .card h5 {
-    color: #08526d;
-
-}
-
-.top-content.row-two-col-tow .card h6 {
-    color: #acacac;
-    font-size: 12px;
-}
-
-.top-content.row-two-col-tow .card p {
-    color: #666666;
-    font-size: 16px;
-}
-
-.top-content.row-two-col-tow .card a {
-    color: #ec1c23;
+.top-content .row-two-col-tow a{
     text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
 }
 
+.top-content .row-two-col-tow .card p{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #1a1e21;
+}
+
+.top-content .row-two-col-tow .card h5{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #1a1e21;
+}
+
+.top-content .row-three-col-tow img{
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    margin-top: 16px;
+}
 /*!*Responsive featured work for mobile  *!*/
 /*@media (max-width: 576px) {*/
 /*    .row-two-col-tow {*/
@@ -180,11 +211,22 @@ body{
 /*End Slider*/
 
 /*Start Latest post*/
-.latest-post {
-    margin: 15px 98px;
+/*.latest-post {
+    margin: 16px;
     background-color: #FFF;
     border-radius: 8px;
     padding: 20px;
+
+}*/
+.latest-post{
+    margin-top: 16px;
+}
+
+.latest-post .body{
+    background-color: #FFF;
+    border-radius: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .latest-post a{
@@ -195,6 +237,18 @@ body{
     margin-bottom: 30px;
 }
 
+.latest-post .card img{
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.latest-post .card p{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .latest-post .card:hover {
     transform: scale(1.03);
 }
@@ -202,7 +256,7 @@ body{
 
 .latest-post h1 {
     font-weight: bold;
-    color: #000;
+    color: #212529;
 }
 
 .latest-post .header p {
@@ -213,7 +267,7 @@ body{
 }
 
 .latest-post .card h5 {
-    color: #08526d;
+    color: #212529;
 
 }
 
@@ -247,18 +301,18 @@ body{
 /*Start statistics*/
 .statistics {
     margin: 0;
-    background-color: #eff6f8;
+    background-color: #f2f2f2;
     padding: 20px 0 20px 0 ;
 }
 
 .statistics i {
-    color: #08526d;
+    color: #212529;
     font-size: 35px;
     margin: 10px;
 }
 
 .statistics h1 {
-    color: #08526d;
+    color: #212529;
     font-weight: bold;
 }
 
@@ -307,6 +361,19 @@ body{
     margin: 30px;
 }
 
+.footer .navbar-brand > span {
+    font-size: 30px;
+}
+
+.footer .navbar-brand span:first-child {
+    color: #212529;
+    font-weight: bold;
+}
+
+.footer .navbar-brand span:last-child {
+    color: #ec1c23;
+}
+
 .footer .site-info > p {
     margin-top: 30px;
     color: #666666;
@@ -318,11 +385,11 @@ body{
     content: "\f138";
     display: inline-block;
     margin-right: 5px;
-    color: #08526d;
+    color: #212529;
 }
 
 .footer .site-info .read-more {
-    color: #08526d;
+    color: #212529;
     text-decoration: none;
     font-size: 14px;
     font-weight: bold;
@@ -330,7 +397,7 @@ body{
 
 
 .footer h2 {
-    color: #08526d;
+    color: #212529;
     font-size: 25px;
     margin-top: 14px;
     margin-bottom: 40px;
@@ -341,14 +408,14 @@ body{
     content: "\f054";
     display: inline-block;
     margin-right: 5px;
-    color: #08526d;
+    color: #212529;
     font-size: 12px;
     position: relative;
     top: -1px;
 }
 
 .footer li {
-    color: #08526d;
+    color: #212529;
     font-weight: bold;
     font-size: 14px;
     line-height: 2;
@@ -356,7 +423,7 @@ body{
 
 .footer .contact-info a {
     text-decoration: none;
-    color: #08526d;
+    color: #212529;
     font-weight: bold;
 }
 

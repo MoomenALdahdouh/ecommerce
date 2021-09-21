@@ -45,7 +45,7 @@
                                 <input type="file" name="fileToUpload" id="fileToUpload">
                             </div>
                             <div class="preview col-sm-6 text-end">
-                                <img alt="image" src="uploads/upload-image.png" id="img" width="100"
+                                <img alt="image" src="../uploads/upload-image.png" id="img" width="100"
                                      height="100">
                             </div>
                         </div>

@@ -99,7 +99,6 @@ $(function () {
             const itemID = $(this).attr('itemID');
             var proceed = confirm('Are you sure to delete this Item?')
             if (proceed) {
-                console.log(itemID);
                 $.ajax({
                     url: 'innerpage/itemsPages/deleteItems.php',
                     method: 'POST',

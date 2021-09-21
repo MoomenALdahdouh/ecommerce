@@ -1,0 +1,59 @@
+.cart-header .col-one{
+    width: 60%;
+}
+
+.cart-header .col-one ul{
+    list-style-type: none;
+}
+
+.cart-header .col-two{
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 16px;
+    width: 30%;
+    margin: 8px;
+}
+
+.cart-header .col-one .header{
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px;
+}
+.cart-header .col-one .more-to-love{
+    background-color: #FFF;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+}
+.cart-header .col-one .more-to-love img{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.cart-header .col-one .item-cart{
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px;
+}
+
+.cart-header .col-one .item-cart .col-left{
+    width: 30%;
+}
+.cart-header .col-one .item-cart .col-right{
+    padding: 8px 8px;
+    width: 70%;
+}
+.cart-header .col-one .content img{
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.cart-header .col-one a{
+    text-decoration: none;
+    color: #1a1e21;
+}
+
