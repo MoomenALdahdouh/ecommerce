@@ -88,3 +88,5 @@ function getSelectFromDB($select, $from, $where, $value)
     $stmt->execute(array($value));
     return $stmt->fetch();
 }
+
+

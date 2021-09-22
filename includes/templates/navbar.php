@@ -38,7 +38,7 @@ if ($_SESSION['lang'] == "en") {
 
             </div>
             <!--Right elements -->
-            <form style="margin: 0 10px" class="search-key-box d-flex input-group w-auto">
+            <!--<form style="margin: 0 10px" class="search-key-box d-flex input-group w-auto">
                 <input
                         type="search"
                         class="form-control"
@@ -47,7 +47,7 @@ if ($_SESSION['lang'] == "en") {
                         aria-describedby="search-addon"
                 />
                 <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
-            </form>
+            </form>-->
             <a class="text-reset me-3" href="cart.php">
                 <i class="fas text-light fa-shopping-cart"></i>
                 <span style="font-size: 12px"
@@ -123,3 +123,5 @@ if ($_SESSION['lang'] == "en") {
         </div>
     </nav>
 </div>
+
+

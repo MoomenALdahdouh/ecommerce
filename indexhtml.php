@@ -1,3 +1,24 @@
+<!--Start Search-->
+<!--<div class="col-md-3 search-view">
+    <form  class="search-key-box d-flex input-group w-auto">
+        <input
+                type="search"
+                class="form-control"
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedby="search-addon"
+        />
+        <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
+    </form>
+    <div class="col-md-3" style="position: fixed">
+        <div class="list-group" id="show-list-search">
+            <a href="" class="list-group-item list-group-item-action border-1">List-1</a>
+            <a href="" class="list-group-item list-group-item-action border-1">List-1</a>
+            <a href="" class="list-group-item list-group-item-action border-1">List-1</a>
+        </div>
+    </div>
+</div>-->
+<!--End Search-->
 <!--Start Slider-->
 <div class="top-content">
     <div class="container">
@@ -22,11 +43,18 @@
                             <div class="carousel-inner">
                                 <?php
                                 //print_r(getProducts()) ;
+                                $count = 0;
                                 foreach (getAds() as $row) {
                                     $image = $row['Image'];
                                     $id = $row['ItemID'];
-                                    echo "<div class='carousel-item active'><a href='item.php?itemid=$id'>
-                                    <img src='/uploads/$image' alt='' class='d-block w-100' ></a></div>";
+                                    if ($count == 0) {
+                                        echo "<div class='carousel-item active'><a href='item.php?itemid=$id'>
+                                    <img src='/uploads/$image' alt='slide-img' class='d-block w-100' ></a></div>";
+                                    } else {
+                                        echo "<div class='carousel-item'><a href='item.php?itemid=$id'>
+                                    <img src='/uploads/$image' alt='slide-img' class='d-block w-100' ></a></div>";
+                                    }
+                                    $count++;
                                 } ?>
                             </div>
 
@@ -50,6 +78,12 @@
                                 <button type="button" data-bs-target="#carouselExampleIndicators"
                                         data-bs-slide-to="5"
                                         aria-label="Slide 6"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators"
+                                        data-bs-slide-to="6"
+                                        aria-label="Slide 7"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators"
+                                        data-bs-slide-to="7"
+                                        aria-label="Slide 8"></button>
                             </div>
                         </div>
                     </li>
@@ -77,6 +111,26 @@
                 </ul>
             </div>
             <div class="col-three col-sm-12 col-md-12 col-lg-4 text-center">
+                <!--Start Search-->
+                <div class="search-view">
+                    <form class="search-key-box d-flex input-group w-auto">
+                        <input
+                                id="search-id"
+                                type="search"
+                                class="form-control"
+                                placeholder="Search"
+                                aria-label="Search"
+                                aria-describedby="search-addon"
+                        />
+                        <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
+                    </form>
+                    <div class="col-md-1 search-results">
+                        <div class="list-group" id="show-list-search">
+                            <!--<a href="" class="list-group-item list-group-item-action border-1">List-1</a>-->
+                        </div>
+                    </div>
+                </div>
+                <!--End Search-->
                 <div class="login-boy">
                     <?php if (!isset($_SESSION['Username'])) { ?>
                         <img class="account-img" src="/seller/layout/images/account.webp">

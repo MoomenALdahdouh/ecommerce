@@ -22,6 +22,7 @@ if (isset($_SESSION['lang'])) {
     <link rel="stylesheet" href="<?php echo $css; ?>index.css"/>
     <link rel="stylesheet" href="<?php echo $css; ?>item.css"/>
     <link rel="stylesheet" href="<?php echo $css; ?>cart.css"/>
+    <link rel="stylesheet" href="<?php echo $css; ?>navbar.css"/>
 </head>
 <!--Open the body here and close it in the footer php file-->
 <body id="body" style="direction: <?php echo $dir;?>">

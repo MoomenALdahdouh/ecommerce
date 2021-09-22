@@ -175,6 +175,18 @@
     color: #1a1e21;
 }
 
+.latest-item .item-cart p{
+    line-height: 1.5em;
+    height: 3em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.latest-item .item-cart {
+    margin: 8px 0;
+}
 
 /*<!--End Latest post-->*/
 /*Model message*/
