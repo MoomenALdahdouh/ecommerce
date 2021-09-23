@@ -1,24 +1,3 @@
-<!--Start Search-->
-<!--<div class="col-md-3 search-view">
-    <form  class="search-key-box d-flex input-group w-auto">
-        <input
-                type="search"
-                class="form-control"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="search-addon"
-        />
-        <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
-    </form>
-    <div class="col-md-3" style="position: fixed">
-        <div class="list-group" id="show-list-search">
-            <a href="" class="list-group-item list-group-item-action border-1">List-1</a>
-            <a href="" class="list-group-item list-group-item-action border-1">List-1</a>
-            <a href="" class="list-group-item list-group-item-action border-1">List-1</a>
-        </div>
-    </div>
-</div>-->
-<!--End Search-->
 <!--Start Slider-->
 <div class="top-content">
     <div class="container">

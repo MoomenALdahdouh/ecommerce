@@ -51,6 +51,12 @@ function cartNotification()
         $stmt = $conn->prepare("SELECT * FROM cart WHERE userID=?");
         $stmt->execute(array($userID));
         return $stmt->rowCount();
+    }else if (isset($_SESSION['cart'])){
+        $count = 0;
+        foreach ($_SESSION['cart'] as $cart) {
+            $count++;
+        }
+        return $count;
     }
 }
 
@@ -89,4 +95,21 @@ function getSelectFromDB($select, $from, $where, $value)
     return $stmt->fetch();
 }
 
-
+/*Check if has cart items*/
+function checkCartSession()
+{
+    global $conn;
+    //unset($_SESSION['cart']);
+    if (isset($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $item) {
+            $itemID = $item['itemID'];
+            $date = $item['Date'];
+            if (!isExist('cart', 'itemID', $itemID)) {
+                $userID = $_SESSION['ID'];
+                $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date) VALUES(:userID,:itemID,$date)");
+                $stmt->execute(array('userID' => $userID, 'itemID' => $itemID));
+            }
+        }
+        //unset($_SESSION['cart']);
+    }
+}

@@ -50,7 +50,7 @@ if ($_SESSION['lang'] == "en") {
             </form>-->
             <a class="text-reset me-3" href="cart.php">
                 <i class="fas text-light fa-shopping-cart"></i>
-                <span style="font-size: 12px"
+                <span id="cart-notification" style="font-size: 12px"
                       class="badge rounded-pill badge-notification bg-danger"><?php if (cartNotification() > 0) echo cartNotification() ?></span>
             </a>
             <ul class="dropdown-box nav navbar-nav">
