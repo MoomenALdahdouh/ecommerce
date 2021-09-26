@@ -14,7 +14,7 @@ if (isset($_GET['itemid'])) {
     $quantity = $item['Quantity'];
 }
 
-$isExistWishes = isExist('wishes','itemID',$itemID);
+$isExistWishes = isExist('wishes', 'itemID', $itemID);
 
 ?>
 <div class="item">
@@ -139,14 +139,12 @@ $isExistWishes = isExist('wishes','itemID',$itemID);
                             <button itemID="<?php echo $itemID; ?>" id="cart-item" class="cart-button btn">Add to Cart
                             </button>
                             <button itemID="<?php echo $itemID; ?>" id="wish-item" class="wish-button btn">
-                                <?php
-                                if ($isExistWishes){?>
-                                    <i class="fas fa-heart" style="color: #ff0000"></i>
-                                <?php
-                                }else{?>
-                                    <i class="far fa-heart"></i>
-                                <?php
-                                }?>
+                                <i id="wish-item-icon" class="<?php
+                                if ($isExistWishes)
+                                    echo "fas fa-heart text-danger";
+                                else
+                                    echo "far fa-heart";
+                                ?>"></i>
                                 3555
                             </button>
                         </div>

@@ -15,7 +15,10 @@
             <div class="items-nav collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="nav navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a  class="nav-link" aria-current="page" href="dashboard.php"><?php echo lang('home') ?></a>
+                        <a  class="nav-link" aria-current="page" href="dashboard.php"><?php echo lang('dashboard') ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link" aria-current="page" href="items.php"><?php echo lang('items') ?></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page"
@@ -27,7 +30,7 @@
                     </li>
                 </ul>
                 <!--Right elements -->
-                <form style="margin: 0 10px" class="search-key-box d-flex input-group w-auto">
+               <!-- <form style="margin: 0 10px" class="search-key-box d-flex input-group w-auto">
                     <input
                             type="search"
                             class="form-control"
@@ -36,7 +39,7 @@
                             aria-describedby="search-addon"
                     />
                     <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
-                </form>
+                </form>-->
                 <a class="text-reset me-3" href="#">
                     <i class="fas text-light fa-shopping-cart"></i>
                 </a>

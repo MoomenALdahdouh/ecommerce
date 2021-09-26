@@ -1,5 +1,3 @@
-<!--DOCTYPE HTML-->
-<!--Here you can declaration the the head tag -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">

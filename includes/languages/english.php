@@ -17,6 +17,7 @@ function lang($phrase)
         'welcome' => 'Welcome',
         'home' => 'Home',
         'categories' => 'Categories',
+        'dashboard' => 'Dashboard',
         'items' => 'Items',
         'members' => 'Members',
         'statistics' => 'Statistics',

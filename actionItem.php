@@ -5,15 +5,19 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "ecoca";
+
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if (isset($_POST['action'])) {
         $action = $_POST['action'];
         $itemID = $_POST['itemID'];
-        $quantity = $_POST['quantity'];
         switch ($action) {
+            case 'get':
+                //getItemsFromDB();
+                break;
             case 'addToCart':
+                $quantity = $_POST['quantity'];
                 addToCart($conn, $itemID, $quantity);
                 break;
             case 'addToWishes':
@@ -23,23 +27,70 @@ try {
                 removeFromCart($conn, $itemID);
                 break;
             case 'buy':
+                $quantity = $_POST['quantity'];
                 buyFromCart($conn, $itemID, $quantity);
                 break;
+            case 'update':
+                $quantity = $_POST['quantity'];
+                updateQuantity($conn, $itemID, $quantity);
+                break;
         }
-
     }
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
+
+function getItemsFromDB()
+{
+    global $conn;
+    if (isset($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $item) {
+            $itemID = $item['itemID'];
+            $date = $item['Date'];
+            $quantity = $item['quantity'];
+            if (!isExist('cart', 'itemID', $itemID)) {
+                $userID = $_SESSION['ID'];
+                $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date,Quantity	) VALUES(:userID,:itemID,:date,:quantity)");
+                $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'date' => $date, 'quantity' => $quantity));
+            }
+        }
+        unset($_SESSION['cart']);
+    }
+    if (isset($_SESSION['ID'])) {
+        $userID = $_SESSION['ID'];
+        $count = 0;
+        foreach (getAllFromDB('cart', 'userID', $userID) as $row) {
+            $_SESSION['cart'][$count] = array('itemID' => $row['itemID'], 'quantity' => $row['Quantity']);
+            echo cartNotification();
+            $count++;
+        }
+    }
+}
+
 
 function buyFromCart()
 {
 
 }
 
-function removeFromCart()
+function removeFromCart($conn, $itemID)
 {
-
+    if (isset($_SESSION['Username'])) {
+        $userID = $_SESSION['ID'];
+        $stmt = $conn->prepare("DELETE FROM cart WHERE UserID = :userID itemID = :id");
+        $stmt->bindParam("userID", $userID, ":id", $itemID);
+        $stmt->execute();
+    } else if (isset($_SESSION['cart'])) {
+        $count = 0;
+        foreach ($_SESSION['cart'] as $cart) {
+            $itemid = $cart['itemID'];
+            if ($itemid == $itemID) {
+                unset($_SESSION['cart'][$count]);
+                break;
+            }
+            $count++;
+        }
+    }
 }
 
 function addToCart($conn, $itemID, $quantity)
@@ -50,7 +101,7 @@ function addToCart($conn, $itemID, $quantity)
             $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date) VALUES(:userID,:itemID,now())");
             $stmt->execute(array('userID' => $userID, 'quantity' => $quantity, 'itemID' => $itemID));
             echo cartNotification();
-        }else
+        } else
             echo 'exist';
     } else {
         $now = new DateTime();
@@ -94,8 +145,26 @@ function addToWishes($conn, $itemID)
             $stmt->execute();
             echo 'remove';
         }
-    }else{
+    } else {
         echo 'false';
+    }
+}
+
+function updateQuantity($conn, $itemID, $quantity)
+{
+    if (isset($_SESSION['Username'])) {
+        $userID = $_SESSION['ID'];
+        $stmt = $conn->prepare("UPDATE cart SET Quantity = ? WHERE UserID = ? AND itemID = ?");
+        $stmt->execute(array($quantity, $userID, $itemID));
+    } else if ($_SESSION['cart']) {
+        $count = 0;
+        foreach ($_SESSION['cart'] as $cart) {
+            $itemid = $cart['itemID'];
+            if ($itemid == $itemID) {
+                $_SESSION['cart'][$count]['quantity'] = $quantity;
+            }
+            $count++;
+        }
     }
 }
 
@@ -125,4 +194,12 @@ function cartNotification()
         }
         return $count;
     }
+}
+
+function getAllFromDB($from, $where, $value)
+{
+    global $conn;
+    $stmt = $conn->prepare("SELECT * FROM $from WHERE $where=?");
+    $stmt->execute(array($value));
+    return $stmt->fetchAll();
 }

@@ -1,6 +1,7 @@
 $(function () {
     'use strict';
     $(document).ready(function () {
+        getItemCart()
         hideShowPlaceholder()
         addToCart();
         addToWishes();
@@ -10,6 +11,21 @@ $(function () {
         increasesItemCart()
         decreasesItemCart()
     });
+
+    function getItemCart(){
+        let action = 'get';
+        $.ajax({
+            url: 'actionItem.php',
+            method: 'POST',
+            data: {
+                'itemID': '',
+                'action': action,
+            },
+            success: function (data) {
+
+            }
+        });
+    }
 
     // Hid text Placeholder
     function hideShowPlaceholder() {
@@ -23,6 +39,34 @@ $(function () {
 
     /*Increases quantity item */
     function increasesItemCart() {
+        Array.from(document.querySelectorAll('.counter-plus')).forEach(bttn => {
+            bttn.addEventListener('click', (e) => {
+                e.preventDefault();
+                let input = e.target.parentNode.querySelector('#input-quantity');
+                let quantity = input.value + '';
+                quantity++;
+                input.value = quantity;
+                let inputItemID = e.target.parentNode.querySelector('#item-id');
+                let itemID = inputItemID.value;
+                let action = 'update';
+                $.ajax({
+                    url: 'actionItem.php',
+                    method: 'POST',
+                    data: {
+                        'itemID': itemID,
+                        'action': action,
+                        'quantity': quantity,
+                    },
+                    success: function (data) {
+
+                    }
+                });
+            });
+        });
+    }
+
+    /*Decreases quantity item */
+    function decreasesItemCart() {
         Array.from(document.querySelectorAll('.counter-minus')).forEach(bttn => {
             bttn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -31,34 +75,50 @@ $(function () {
                 if (quantity > 0) {
                     quantity--;
                     input.value = quantity;
+                    let inputItemID = e.target.parentNode.querySelector('#item-id');
+                    let itemID = inputItemID.value;
+                    let action = 'update';
+                    $.ajax({
+                        url: 'actionItem.php',
+                        method: 'POST',
+                        data: {
+                            'itemID': itemID,
+                            'action': action,
+                            'quantity': quantity,
+                        },
+                        success: function (data) {
+                           // calculateSummery();
+                        }
+                    });
                 }
             });
         });
     }
 
-    /*Decreases quantity item */
-    function decreasesItemCart() {
-        Array.from(document.querySelectorAll('.counter-plus')).forEach(bttn => {
-            bttn.addEventListener('click', (e) => {
-                e.preventDefault();
-                let input = e.target.parentNode.querySelector('#input-quantity');
-                let quantity = input.value + '';
-                quantity++;
-                input.value = quantity;
-            });
+    /*Calculate order summery*/
+    function calculateSummery() {
+        $.ajax({
+            url: 'actionItem.php',
+            method: 'POST',
+            data: {
+                'itemID': itemID,
+                'action': action,
+                'quantity': quantity,
+            },
+            success: function (data) {
+
+            }
         });
     }
 
     /*Remove from cart*/
     function removeFromCart() {
-        Array.from(document.querySelectorAll('.counter-remove')).forEach(bttn => {
+        Array.from(document.querySelectorAll('.counter-delete')).forEach(bttn => {
             bttn.addEventListener('click', (e) => {
                 e.preventDefault();
-                let inputItemID = e.target.parentNode.querySelector('#item-id');
-                let itemID = inputItemID.value;
+                let inputitemID = e.target.parentNode.querySelector('#item-id');
+                let itemID = inputitemID.value;
                 let action = 'remove';
-                console.log(itemID);
-                console.log('itemID');
                 $.ajax({
                     url: 'actionItem.php',
                     method: 'POST',
@@ -67,7 +127,8 @@ $(function () {
                         'action': action,
                     },
                     success: function (data) {
-
+                        if (data == "remove")
+                            console.log('remove');
                     }
                 });
             });

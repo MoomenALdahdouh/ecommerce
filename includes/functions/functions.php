@@ -51,7 +51,7 @@ function cartNotification()
         $stmt = $conn->prepare("SELECT * FROM cart WHERE userID=?");
         $stmt->execute(array($userID));
         return $stmt->rowCount();
-    }else if (isset($_SESSION['cart'])){
+    } else if (isset($_SESSION['cart'])) {
         $count = 0;
         foreach ($_SESSION['cart'] as $cart) {
             $count++;
@@ -99,17 +99,16 @@ function getSelectFromDB($select, $from, $where, $value)
 function checkCartSession()
 {
     global $conn;
-    //unset($_SESSION['cart']);
     if (isset($_SESSION['cart'])) {
         foreach ($_SESSION['cart'] as $item) {
             $itemID = $item['itemID'];
             $date = $item['Date'];
+            $quantity = $item['quantity'];
             if (!isExist('cart', 'itemID', $itemID)) {
                 $userID = $_SESSION['ID'];
-                $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date) VALUES(:userID,:itemID,$date)");
-                $stmt->execute(array('userID' => $userID, 'itemID' => $itemID));
+                $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date,Quantity	) VALUES(:userID,:itemID,:date,:quantity)");
+                $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'date' => $date, 'quantity' => $quantity));
             }
         }
-        //unset($_SESSION['cart']);
     }
 }

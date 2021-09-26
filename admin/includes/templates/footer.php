@@ -3,7 +3,6 @@
 <script src="<?php echo $jsbot ?>jquery-3.6.0.min.js"></script>
 <script src="<?php echo $jsbot ?>bootstrap.min.js"></script>
 <script src="<?php echo $js ?>backend.js"></script>
-<!--<script src="layout/js/backend.js"></script>-->
 <script src="https://kit.fontawesome.com/deeee70e6c.js" crossorigin="anonymous"></script>
 </body>
 </html>

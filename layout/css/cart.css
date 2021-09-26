@@ -64,7 +64,7 @@
 .empty-cart{
     margin: auto;
     display: block;
-    padding-bottom: 10%;
-    padding-top: 10%;
+    width: 100%;
+    object-fit: cover;
 }
 

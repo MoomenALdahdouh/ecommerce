@@ -402,3 +402,76 @@ body{
 }
 
 /*End Copy right*/
+
+
+/*Start Items*/
+h1 {
+    text-align: center;
+    margin: 50px 0 30px 0;
+    padding: 0;
+}
+.table-header {
+    background-color: #333;
+    color: #FFF;
+}
+
+.status-div p {
+    padding: 0;
+}
+
+p {
+    padding: 0 0 0 12px;
+    margin: 0;
+    font-weight: bold;
+    color: #014c8f;
+}
+
+.add-item h1 {
+    margin: 50px 0 30px 0;
+    padding: 0;
+}
+
+.add-item .content ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.add-item .content ul li .input {
+    margin: 10px 0;
+    background: #dedede;
+    border: 0;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+#edit-item .content ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+#edit-item ul label{
+    width: 100%;
+}
+
+#edit-item ul input{
+    margin: 10px 0;
+    background: #dedede;
+    border: 0;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+#edit-item ul p{
+    padding: 0;
+}
+
+.image-upload{
+    background-color: #28394d;
+    border-radius: 8px;
+    padding: 5px;
+    color: #FFF;
+}
+
+/*End  Items*/
