@@ -115,39 +115,39 @@ $isExistWishes = isExist('wishes', 'itemID', $itemID);
                         </div>
                     </div>
                     <div>
-                        <h3>$<?php echo $price; ?></h3>
-                    </div>
-                    <div>
-                        <p>Quantity:</p>
                         <div class="container margin-top">
                             <div class="handle-counter" id="handleCounter">
+                                <input type='hidden' id='item-id' value='<?php echo $itemID; ?>'/>
+                                <h3>USD $<span id="item-price"><?php echo $price; ?></span></h3>
+                                <p>Quantity:</p>
                                 <button class="counter-minus btn btn-primary">-</button>
                                 <input class="btn" id="input-quantity" type="text" value="1">
                                 <button class="counter-plus btn btn-primary">+</button>
-                                <p>Additional 3% off (5 pieces or more)<br><span><?php echo $quantity; ?> pieces available</span>
+                                <p>Additional 3% off (5 pieces or more)<br><span><strong
+                                                id='avilabil-quantity'><?php echo $quantity; ?></strong> pieces available</span>
                                 </p>
+                                <strong>Shipping: US $131.33</strong>
+                                <p>to Palestine via Fedex IP<br>Estimated Delivery: 7-15 days</p>
+
+                                <?php include 'modalMessage.php'; ?>
+                                <button itemID="<?php echo $itemID; ?>" id="buy-item" class="counter-buy btn btn-danger">Buy
+                                    Now
+                                </button>
+                                <button itemID="<?php echo $itemID; ?>" id="cart-item" class="cart-button btn">Add
+                                    to Cart
+                                </button>
+                                <button itemID="<?php echo $itemID; ?>" id="wish-item" class="wish-button btn">
+                                    <i id="wish-item-icon" class="<?php
+                                    if ($isExistWishes)
+                                        echo "fas fa-heart text-danger";
+                                    else
+                                        echo "far fa-heart";
+                                    ?>"></i>
+                                    3555
+                                </button>
                             </div>
                         </div>
-                        <div>
-                            <strong>Shipping: US $131.33</strong>
-                            <p>to Palestine via Fedex IP<br>Estimated Delivery: 7-15 days</p>
-                        </div>
-                        <div>
-                            <?php include 'modalMessage.php'; ?>
-                            <button itemID="<?php echo $itemID; ?>" id="buy-item" class="buy-button btn">Buy Now
-                            </button>
-                            <button itemID="<?php echo $itemID; ?>" id="cart-item" class="cart-button btn">Add to Cart
-                            </button>
-                            <button itemID="<?php echo $itemID; ?>" id="wish-item" class="wish-button btn">
-                                <i id="wish-item-icon" class="<?php
-                                if ($isExistWishes)
-                                    echo "fas fa-heart text-danger";
-                                else
-                                    echo "far fa-heart";
-                                ?>"></i>
-                                3555
-                            </button>
-                        </div>
+
                     </div>
                 </div>
             </div>

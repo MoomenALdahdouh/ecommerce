@@ -1,4 +1,5 @@
 <!--Start Slider-->
+<!--<a href="founds.php">Buy</a>-->
 <div class="top-content">
     <div class="container">
         <div class="row">

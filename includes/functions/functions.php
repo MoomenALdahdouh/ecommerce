@@ -103,7 +103,7 @@ function checkCartSession()
         foreach ($_SESSION['cart'] as $item) {
             $itemID = $item['itemID'];
             $date = $item['Date'];
-            $quantity = $item['quantity'];
+            $quantity = $item['Quantity'];
             if (!isExist('cart', 'itemID', $itemID)) {
                 $userID = $_SESSION['ID'];
                 $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date,Quantity	) VALUES(:userID,:itemID,:date,:quantity)");

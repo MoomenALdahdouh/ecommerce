@@ -51,3 +51,51 @@
         </div>
     </div>
 </div>
+
+<div id="buy-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h3 class="modal-header btn-danger">Buy Order</h3>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="card">
+                        <div style="padding: 16px" class="cart-header">
+                            <h5>Order Summary</h5>
+                        </div>
+                        <div style="padding: 0 16px" class="card-body">
+                            <dl>
+                                <dt id="Quantity"> Quantity</dt>
+                                <dd id="quantity"></dd>
+                            </dl>
+                            <dl>
+                                <dt id="Price"> Price</dt>
+                                <dd id="price"></dd>
+                            </dl>
+                            <dl>
+                                <dt id="Total">Total</dt>
+                                <dd id="total"></dd>
+                            </dl>
+                        </div>
+                        <div class="card-footer">
+                            <form class="content" method="POST" action="founds.php">
+                                <input id="itemID-founds" class="input" type="hidden" name="ItemID" value="">
+                                <input id="quantity-founds" class="input" type="hidden" name="Quantity" value="">
+                                <input id="price-founds" class="input" type="hidden" name="Price" value="">
+                                <input id="total-founds" class="input" type="hidden" name="Total" value="0">
+                                <input type="submit" id="buy-all-items" style="width: 100%;" class="btn btn-danger"
+                                       value="CONFIRM AND BUY">
+                            </form>
+
+                            <!--<a href="founds.php" style="width: 100%;" itemID="<?php /*echo $itemID; */ ?>" id="buy-item" class="counter-buy btn">Buy
+                                Now
+                            </a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="close" class="btn" type="button" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,7 +14,7 @@ try {
         $itemID = $_POST['itemID'];
         switch ($action) {
             case 'get':
-                //getItemsFromDB();
+                getItemsFromDB();
                 break;
             case 'addToCart':
                 $quantity = $_POST['quantity'];
@@ -27,6 +27,7 @@ try {
                 removeFromCart($conn, $itemID);
                 break;
             case 'buy':
+                echo 'buy';
                 $quantity = $_POST['quantity'];
                 buyFromCart($conn, $itemID, $quantity);
                 break;
@@ -42,35 +43,18 @@ try {
 
 function getItemsFromDB()
 {
-    global $conn;
-    if (isset($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $item) {
-            $itemID = $item['itemID'];
-            $date = $item['Date'];
-            $quantity = $item['quantity'];
-            if (!isExist('cart', 'itemID', $itemID)) {
-                $userID = $_SESSION['ID'];
-                $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date,Quantity	) VALUES(:userID,:itemID,:date,:quantity)");
-                $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'date' => $date, 'quantity' => $quantity));
-            }
-        }
-        unset($_SESSION['cart']);
-    }
     if (isset($_SESSION['ID'])) {
         $userID = $_SESSION['ID'];
-        $count = 0;
-        foreach (getAllFromDB('cart', 'userID', $userID) as $row) {
-            $_SESSION['cart'][$count] = array('itemID' => $row['itemID'], 'quantity' => $row['Quantity']);
-            echo cartNotification();
-            $count++;
-        }
+        echo json_encode(getAllFromDB('cart', 'userID', $userID));
+    }else if (isset($_SESSION['cart'])){
+        echo json_encode($_SESSION['cart']);
     }
 }
 
 
-function buyFromCart()
+function buyFromCart($conn, $itemID, $quantity)
 {
-
+include 'founds.php';
 }
 
 function removeFromCart($conn, $itemID)
@@ -98,8 +82,8 @@ function addToCart($conn, $itemID, $quantity)
     if (isset($_SESSION['Username'])) {
         $userID = $_SESSION['ID'];
         if (!isExist('cart', 'itemID', $itemID)) {
-            $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date) VALUES(:userID,:itemID,now())");
-            $stmt->execute(array('userID' => $userID, 'quantity' => $quantity, 'itemID' => $itemID));
+            $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date,Quantity) VALUES(:userID,:itemID,now())");
+            $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'Quantity' => $quantity));
             echo cartNotification();
         } else
             echo 'exist';
@@ -120,12 +104,12 @@ function addToCart($conn, $itemID, $quantity)
             if ($isExist)
                 echo 'exist';
             else {
-                $_SESSION['cart'][$count] = array('itemID' => $itemID, 'quantity' => $quantity, 'Date' => $timestring);
+                $_SESSION['cart'][$count] = array('itemID' => $itemID, 'Quantity' => $quantity, 'Date' => $timestring);
                 echo cartNotification();
             }
         } else {
             //array_push($cartItems, $item);
-            $_SESSION['cart'][0] = array('itemID' => $itemID, 'quantity' => $quantity, 'Date' => $timestring);
+            $_SESSION['cart'][0] = array('itemID' => $itemID, 'Quantity' => $quantity, 'Date' => $timestring);
             echo cartNotification();
         }
     }
@@ -161,7 +145,7 @@ function updateQuantity($conn, $itemID, $quantity)
         foreach ($_SESSION['cart'] as $cart) {
             $itemid = $cart['itemID'];
             if ($itemid == $itemID) {
-                $_SESSION['cart'][$count]['quantity'] = $quantity;
+                $_SESSION['cart'][$count]['Quantity'] = $quantity;
             }
             $count++;
         }

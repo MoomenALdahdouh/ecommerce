@@ -1,30 +1,46 @@
 $(function () {
     'use strict';
     $(document).ready(function () {
-        getItemCart()
+        // getItemCart()
         hideShowPlaceholder()
         addToCart();
         addToWishes();
         search();
-        removeFromCart()
-        buyFromCart()
-        increasesItemCart()
-        decreasesItemCart()
+        removeFromCart();
+        buyFromCart();
+        buyOrderSummeryCart();
+        increasesItemCart();
+        inputQuantityItemCart();
+        decreasesItemCart();
     });
 
-    function getItemCart(){
+    function getItemCart() {
         let action = 'get';
-        $.ajax({
-            url: 'actionItem.php',
-            method: 'POST',
-            data: {
-                'itemID': '',
-                'action': action,
+        $('#content-table').DataTable({
+            ajax: {
+                url: 'actionItem.php',
+                method: 'POST',
+                data: {
+                    'itemID': '',
+                    'action': action,
+                },
+                dataSrc: "items"
             },
-            success: function (data) {
-
-            }
+            columns: [
+                {"data": "itemID"},
+                {"data": "Image"},
+                {"data": "Name"},
+                {"data": "Description"},
+                {"data": "Price"},
+                {"data": "Date"},
+                {"data": "Country"},
+                {"data": "Rating"},
+                {"data": "CatID"},
+                {"data": "MemberID"},
+                {"data": "Control"}
+            ]
         });
+
     }
 
     // Hid text Placeholder
@@ -38,13 +54,61 @@ $(function () {
     }
 
     /*Increases quantity item */
+    function inputQuantityItemCart() {
+        Array.from(document.querySelectorAll('#input-quantity')).forEach(bttn => {
+            bttn.addEventListener('keyup', (e) => {
+                e.preventDefault();
+                let strongQuantity = e.target.parentNode.querySelector('#avilabil-quantity');
+                let currentQuantity = strongQuantity.innerHTML;
+                let input = e.target.parentNode.querySelector('#input-quantity');
+                let quantity = input.value + '';
+                /* setTimeout(function () {
+                         if (quantity > currentQuantity)
+                             quantity = currentQuantity;
+                         else if (quantity == 0) {
+                             quantity = 1;
+                         }
+                         input.value = quantity;
+                         console.log(input.value)
+                     }, 100 /// Time in milliseconds
+                 );*/
+                if (quantity > currentQuantity)
+                    quantity = currentQuantity;
+                else if (quantity == 0) {
+                    quantity = 1;
+                }
+                input.value = quantity;
+                console.log(input.value)
+                let inputItemID = e.target.parentNode.querySelector('#item-id');
+                let itemID = inputItemID.value;
+                let action = 'update';
+                $.ajax({
+                    url: 'actionItem.php',
+                    method: 'POST',
+                    data: {
+                        'itemID': itemID,
+                        'action': action,
+                        'quantity': quantity,
+                    },
+                    success: function (data) {
+
+                    }
+                });
+            });
+        });
+    }
+
+    /*Increases quantity item */
     function increasesItemCart() {
         Array.from(document.querySelectorAll('.counter-plus')).forEach(bttn => {
             bttn.addEventListener('click', (e) => {
                 e.preventDefault();
+                let strongQuantity = e.target.parentNode.querySelector('#avilabil-quantity');
+                let currentQuantity = strongQuantity.innerHTML;
                 let input = e.target.parentNode.querySelector('#input-quantity');
                 let quantity = input.value + '';
-                quantity++;
+                if (currentQuantity > quantity)
+                    quantity++;
                 input.value = quantity;
                 let inputItemID = e.target.parentNode.querySelector('#item-id');
                 let itemID = inputItemID.value;
@@ -87,7 +151,7 @@ $(function () {
                             'quantity': quantity,
                         },
                         success: function (data) {
-                           // calculateSummery();
+                            // calculateSummery();
                         }
                     });
                 }
@@ -135,6 +199,7 @@ $(function () {
         });
     }
 
+
     /*Buy from cart*/
     function buyFromCart() {
         Array.from(document.querySelectorAll('.counter-buy')).forEach(bttn => {
@@ -143,20 +208,79 @@ $(function () {
                 let inputitemID = e.target.parentNode.querySelector('#item-id');
                 let itemID = inputitemID.value;
                 let input = e.target.parentNode.querySelector('#input-quantity');
-                let quantity = input.value + '';
-                var action = 'buy';
-                $.ajax({
-                    url: 'actionItem.php',
+                let quantity = input.value;
+                let priceElement = e.target.parentNode.querySelector('#item-price');
+                let price = priceElement.innerHTML;
+                let total = price * quantity;
+
+                $('#buy-modal').modal('show');
+                document.getElementById('quantity').innerHTML = quantity;
+                document.getElementById('price').innerHTML = 'US $' + price;
+                document.getElementById('total').innerHTML = 'US $' + total;
+
+                document.getElementById('total-founds').value = total;
+                /*$.ajax({
+                    url: 'founds.php',
                     method: 'POST',
                     data: {
                         'itemID': itemID,
                         'quantity': quantity,
+                        'price': price,
+                        'total': total,
                         'action': action,
                     },
                     success: function (data) {
-
+                        alert(data)
                     }
-                });
+                });*/
+            });
+        });
+    }
+
+    /*Buy Order Summery*/
+    function buyOrderSummeryCart() {
+        $('.counter-buy-summary').click(function (){
+            let itemID = document.getElementById('item-id').innerHTML;
+
+            let subtotal =  document.getElementById('subtotal').innerHTML;
+
+            let shipping = document.getElementById('shipping').innerHTML;
+
+            let total = document.getElementById('total-summery').innerHTML;
+
+            $('#buy-modal').modal('show');
+
+
+            document.getElementById('Quantity').innerHTML = 'Subtotal';
+            document.getElementById('Price').innerHTML = 'Shipping';
+            document.getElementById('Total').innerHTML = 'Total';
+
+            document.getElementById('quantity').innerHTML = 'US $' +subtotal;
+            document.getElementById('price').innerHTML = 'US $' + shipping;
+            document.getElementById('total').innerHTML = 'US $' + total;
+
+            document.getElementById('total-founds').value = total;
+        });
+    }
+
+    function buyAllFromCart() {
+        $("#buy-all-items").click(function () {
+            let inputitemID = e.target.parentNode.querySelector('#item-id');
+            let itemID = inputitemID.value;
+            let input = e.target.parentNode.querySelector('#input-quantity');
+            let quantity = input.value + '';
+            var action = 'buy';
+            $.ajax({
+                url: 'founds.php',
+                method: 'POST',
+                data: {
+                    'itemID': itemID,
+                    'quantity': quantity,
+                    'action': action,
+                },
+                success: function (data) {
+
+                }
             });
         });
     }

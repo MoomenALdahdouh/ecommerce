@@ -12,9 +12,9 @@ if (isset($_SESSION['lang'])) {
     if ($_SESSION['lang'] == "en") {
         include $lang . 'english.php';
         //echo "ENGLISH";
-    } elseif ($_SESSION['lang']== "ar") {
+    } elseif ($_SESSION['lang'] == "ar") {
         include $lang . 'arabic.php';
-       // echo "ARABIC";
+        // echo "ARABIC";
     }
 }
 //include $lang . 'english.php';//All Text in the project
