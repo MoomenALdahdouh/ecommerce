@@ -29,10 +29,10 @@
                                     $id = $row['ItemID'];
                                     if ($count == 0) {
                                         echo "<div class='carousel-item active'><a href='item.php?itemid=$id'>
-                                    <img src='/uploads/$image' alt='slide-img' class='d-block w-100' ></a></div>";
+                                    <img src='uploads/$image' alt='slide-img' class='d-block w-100' ></a></div>";
                                     } else {
                                         echo "<div class='carousel-item'><a href='item.php?itemid=$id'>
-                                    <img src='/uploads/$image' alt='slide-img' class='d-block w-100' ></a></div>";
+                                    <img src='uploads/$image' alt='slide-img' class='d-block w-100' ></a></div>";
                                     }
                                     $count++;
                                 } ?>
@@ -113,7 +113,7 @@
                 <!--End Search-->
                 <div class="login-boy">
                     <?php if (!isset($_SESSION['Username'])) { ?>
-                        <img class="account-img" src="/seller/layout/images/account.webp">
+                        <img class="account-img" src="seller/layout/images/account.webp">
                         <h4>Welcome to EcoExpress</h4>
                         <div class="account container">
                             <div class="row">
@@ -129,7 +129,7 @@
                         <img class="logo-img" src="layout/images/ecoexpress2.png">
                     <?php } ?>
                 </div>
-                <a href=""><img src="/seller/layout/images/p-2.png"></a>
+                <a href=""><img src="seller/layout/images/p-2.png"></a>
             </div>
         </div>
     </div>

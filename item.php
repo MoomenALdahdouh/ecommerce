@@ -191,4 +191,7 @@ $isExistWishes = isExist('wishes', 'itemID', $itemID);
         </div>
     </div>
 </div>
+<div style="background-color: #FFF">
+
+</div>
 <!--End Latest post-->

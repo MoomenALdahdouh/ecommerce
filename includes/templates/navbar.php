@@ -95,6 +95,7 @@ if ($_SESSION['lang'] == "en") {
                                     Profile</a>
                             </li>
                             <li><a class="dropdown-item" href="#">Sittings</a></li>
+                            <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
                             <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                         </ul>
                     </li>

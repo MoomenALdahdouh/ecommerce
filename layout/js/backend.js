@@ -58,24 +58,17 @@ $(function () {
         Array.from(document.querySelectorAll('#input-quantity')).forEach(bttn => {
             bttn.addEventListener('keyup', (e) => {
                 e.preventDefault();
+                let price = e.target.parentNode.querySelector('#item-price').innerHTML;
                 let strongQuantity = e.target.parentNode.querySelector('#avilabil-quantity');
-                let currentQuantity = strongQuantity.innerHTML;
+                let currentQuantity = parseInt(strongQuantity.innerHTML);
                 let input = e.target.parentNode.querySelector('#input-quantity');
-                let quantity = input.value + '';
-                /* setTimeout(function () {
-                         if (quantity > currentQuantity)
-                             quantity = currentQuantity;
-                         else if (quantity == 0) {
-                             quantity = 1;
-                         }
-                         input.value = quantity;
-                         console.log(input.value)
-                     }, 100 /// Time in milliseconds
-                 );*/
+                let quantity = parseInt(input.value);
+                let oldQuantity = quantity;
                 if (quantity > currentQuantity)
                     quantity = currentQuantity;
                 else if (quantity == 0) {
                     quantity = 1;
+                    calculateSummery(price, quantity, oldQuantity);
                 }
                 input.value = quantity;
                 console.log(input.value)
@@ -98,18 +91,21 @@ $(function () {
         });
     }
 
-    /*Increases quantity item */
     function increasesItemCart() {
         Array.from(document.querySelectorAll('.counter-plus')).forEach(bttn => {
             bttn.addEventListener('click', (e) => {
                 e.preventDefault();
+                let price = e.target.parentNode.querySelector('#item-price').innerHTML;
                 let strongQuantity = e.target.parentNode.querySelector('#avilabil-quantity');
-                let currentQuantity = strongQuantity.innerHTML;
+                let currentQuantity = parseInt(strongQuantity.innerHTML);
                 let input = e.target.parentNode.querySelector('#input-quantity');
-                let quantity = input.value + '';
-                if (currentQuantity > quantity)
+                let quantity = parseInt(input.value);
+                let oldQuantity = quantity;
+                if (currentQuantity > quantity) {
                     quantity++;
-                input.value = quantity;
+                    input.value = quantity;
+                    calculateSummery(price, quantity, oldQuantity);
+                }
                 let inputItemID = e.target.parentNode.querySelector('#item-id');
                 let itemID = inputItemID.value;
                 let action = 'update';
@@ -135,10 +131,13 @@ $(function () {
             bttn.addEventListener('click', (e) => {
                 e.preventDefault();
                 let input = e.target.parentNode.querySelector('#input-quantity');
-                let quantity = input.value + '';
-                if (quantity > 0) {
+                let price = e.target.parentNode.querySelector('#item-price').innerHTML;
+                let quantity = parseInt(input.value);
+                let oldQuantity = quantity;
+                if (quantity > 1) {
                     quantity--;
                     input.value = quantity;
+                    calculateSummery(price, quantity, oldQuantity);
                     let inputItemID = e.target.parentNode.querySelector('#item-id');
                     let itemID = inputItemID.value;
                     let action = 'update';
@@ -160,19 +159,27 @@ $(function () {
     }
 
     /*Calculate order summery*/
-    function calculateSummery() {
-        $.ajax({
-            url: 'actionItem.php',
-            method: 'POST',
-            data: {
-                'itemID': itemID,
-                'action': action,
-                'quantity': quantity,
-            },
-            success: function (data) {
+    function calculateSummery(price, quantity, oldQuantity) {
+        let subtotalHtml = document.getElementById('subtotal');
+        let oldSubtotal = subtotalHtml.innerHTML;
+        let totalHtml = document.getElementById('total-summery');
+        let oldTotal = parseInt(totalHtml.innerHTML) - (price * oldQuantity);
+        let newTotal = oldTotal + (price * quantity);
+        totalHtml.innerHTML = newTotal;
+        subtotalHtml.innerHTML = newTotal;
 
-            }
-        });
+        /* $.ajax({
+             url: 'actionItem.php',
+             method: 'POST',
+             data: {
+                 'itemID': itemID,
+                 'action': action,
+                 'quantity': quantity,
+             },
+             success: function (data) {
+
+             }
+         });*/
     }
 
     /*Remove from cart*/
@@ -219,6 +226,9 @@ $(function () {
                 document.getElementById('total').innerHTML = 'US $' + total;
 
                 document.getElementById('total-founds').value = total;
+                document.getElementById('itemID-founds').value = itemID;
+                document.getElementById('quantity-founds').value = quantity;
+                document.getElementById('price-founds').value = price;
                 /*$.ajax({
                     url: 'founds.php',
                     method: 'POST',
@@ -239,10 +249,10 @@ $(function () {
 
     /*Buy Order Summery*/
     function buyOrderSummeryCart() {
-        $('.counter-buy-summary').click(function (){
+        $('.counter-buy-summary').click(function () {
             let itemID = document.getElementById('item-id').innerHTML;
 
-            let subtotal =  document.getElementById('subtotal').innerHTML;
+            let subtotal = document.getElementById('subtotal').innerHTML;
 
             let shipping = document.getElementById('shipping').innerHTML;
 
@@ -255,11 +265,14 @@ $(function () {
             document.getElementById('Price').innerHTML = 'Shipping';
             document.getElementById('Total').innerHTML = 'Total';
 
-            document.getElementById('quantity').innerHTML = 'US $' +subtotal;
+            document.getElementById('quantity').innerHTML = 'US $' + subtotal;
             document.getElementById('price').innerHTML = 'US $' + shipping;
             document.getElementById('total').innerHTML = 'US $' + total;
 
             document.getElementById('total-founds').value = total;
+            document.getElementById('itemID-founds').value = itemID;
+            document.getElementById('quantity-founds').value = quantity;
+            document.getElementById('price-founds').value = price;
         });
     }
 

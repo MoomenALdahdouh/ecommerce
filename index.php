@@ -16,3 +16,4 @@ if (isset($_SESSION['Username'])) { //Check If the admin login or not if is logi
     include 'initmain.php';
     include "indexhtml.php";
 }
+?>

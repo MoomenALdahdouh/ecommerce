@@ -140,7 +140,7 @@ function updateQuantity($conn, $itemID, $quantity)
         $userID = $_SESSION['ID'];
         $stmt = $conn->prepare("UPDATE cart SET Quantity = ? WHERE UserID = ? AND itemID = ?");
         $stmt->execute(array($quantity, $userID, $itemID));
-    } else if ($_SESSION['cart']) {
+    } else if (isset($_SESSION['cart'])) {
         $count = 0;
         foreach ($_SESSION['cart'] as $cart) {
             $itemid = $cart['itemID'];

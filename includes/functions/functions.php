@@ -43,23 +43,6 @@ function getAds()
     return $stmt->fetchAll();
 }
 
-function cartNotification()
-{
-    global $conn;
-    if (isset($_SESSION['ID'])) {
-        $userID = $_SESSION['ID'];
-        $stmt = $conn->prepare("SELECT * FROM cart WHERE userID=?");
-        $stmt->execute(array($userID));
-        return $stmt->rowCount();
-    } else if (isset($_SESSION['cart'])) {
-        $count = 0;
-        foreach ($_SESSION['cart'] as $cart) {
-            $count++;
-        }
-        return $count;
-    }
-}
-
 function getFromDB($from, $where, $value)
 {
     global $conn;
@@ -73,6 +56,17 @@ function isExist($from, $where, $value)
     global $conn;
     $stmt = $conn->prepare("SELECT * FROM $from WHERE $where=?");
     $stmt->execute(array($value));
+    if ($stmt->rowCount() > 0)
+        return true;
+    else
+        return false;
+}
+
+function isExistToValue($from, $where1, $where2, $value1, $value2)
+{
+    global $conn;
+    $stmt = $conn->prepare("SELECT * FROM $from WHERE $where1=? AND $where2=?");
+    $stmt->execute(array($value1, $value2));
     if ($stmt->rowCount() > 0)
         return true;
     else
@@ -110,5 +104,79 @@ function checkCartSession()
                 $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'date' => $date, 'quantity' => $quantity));
             }
         }
+    }
+}
+
+/*add order in db */
+function addOrders()
+{
+    global $conn;
+    if (isset($_SESSION['Username'])) {
+        $userID = $_SESSION['ID'];
+        if (isset($_SESSION['order'])) {
+            foreach ($_SESSION['order'] as $order) {
+                $itemID = $order['ItemID'];
+                $quantity = $order['Quantity'];
+                $price = $order['Price'];
+                $total = $order['Total'];
+                $date = $order['Date'];
+                /*if (!isExistToValue('order', 'ItemID', 'UserID', $itemID, $userID)) {*/
+               /* $stmt = $conn->prepare("SELECT * FROM orders WHERE UserID=? AND ItemID =?");
+                $stmt->execute(array($userID, $itemID));
+                $count = $stmt->rowCount();
+                if ($count == 0) {*/
+                    $stmt = $conn->prepare("INSERT INTO orders(UserID, ItemID,Quantity,Price,Total,Date) VALUES(:userID,:itemID,:quantity, :price,:total ,:date)");
+                    $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'quantity' => $quantity, 'price' => $price, 'total' => $total, 'date' => $date));
+                    decreasesItemQuantity($itemID, $quantity);
+                //}
+            }
+            //unset($_SESSION['order']);
+        }
+    }
+}
+
+function decreasesItemQuantity($itemID, $quantity)
+{
+    global $conn;
+    $stmt = $conn->prepare("SELECT Quantity FROM items WHERE itemID=?");
+    $stmt->execute(array($itemID));
+    $row = $stmt->fetch();
+    $oldQuantity = $row['Quantity'];
+    $newQuantity = $oldQuantity - $quantity;
+    $stmt = $conn->prepare("UPDATE items SET Quantity = ? WHERE itemID = ?");
+    $stmt->execute(array($newQuantity, $itemID));
+}
+
+function cartNotification()
+{
+    global $conn;
+    if (isset($_SESSION['ID'])) {
+        $userID = $_SESSION['ID'];
+        $stmt = $conn->prepare("SELECT * FROM cart WHERE userID=?");
+        $stmt->execute(array($userID));
+        return $stmt->rowCount();
+    } else if (isset($_SESSION['cart'])) {
+        $count = 0;
+        foreach ($_SESSION['cart'] as $cart) {
+            $count++;
+        }
+        return $count;
+    }
+}
+
+function orderNotification($itemID)
+{
+    global $conn;
+    if (isset($_SESSION['ID'])) {
+        $userID = $_SESSION['ID'];
+        $stmt = $conn->prepare("SELECT * FROM orders WHERE UserID=? AND ItemID =?");
+        $stmt->execute(array($userID, $itemID));
+        return $stmt->rowCount();
+    } else if (isset($_SESSION['order'])) {
+        $count = 0;
+        foreach ($_SESSION['order'] as $order) {
+            $count++;
+        }
+        return $count;
     }
 }

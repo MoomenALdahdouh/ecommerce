@@ -77,24 +77,23 @@
                             </dl>
                         </div>
                         <div class="card-footer">
-                            <form class="content" method="POST" action="founds.php">
-                                <input id="itemID-founds" class="input" type="hidden" name="ItemID" value="">
-                                <input id="quantity-founds" class="input" type="hidden" name="Quantity" value="">
-                                <input id="price-founds" class="input" type="hidden" name="Price" value="">
-                                <input id="total-founds" class="input" type="hidden" name="Total" value="0">
-                                <input type="submit" id="buy-all-items" style="width: 100%;" class="btn btn-danger"
-                                       value="CONFIRM AND BUY">
-                            </form>
-
-                            <!--<a href="founds.php" style="width: 100%;" itemID="<?php /*echo $itemID; */ ?>" id="buy-item" class="counter-buy btn">Buy
-                                Now
-                            </a>-->
+                            <?php /*if (isset($_SESSION['Username'])) { */?>
+                                <form class="content" method="POST" action="founds.php">
+                                    <input id="itemID-founds" class="input" type="hidden" name="ItemID" value="">
+                                    <input id="quantity-founds" class="input" type="hidden" name="Quantity" value="">
+                                    <input id="price-founds" class="input" type="hidden" name="Price" value="">
+                                    <input id="total-founds" class="input" type="hidden" name="Total" value="0">
+                                    <input type="submit" id="buy-all-items" style="width: 100%;" class="btn btn-danger"
+                                           value="CONFIRM AND BUY">
+                                </form>
+                            <?php
+                            /*                            } else echo "<a  href='login.php' style='width: 100%; color: #FFF' class='text-center btn btn-danger'>LOGIN TO BUY</a>"; */ ?>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="close" class="btn" type="button" data-bs-dismiss="modal">Cancel</button>
+                <button id="close" class="btn btn-outline-danger" type="button" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
