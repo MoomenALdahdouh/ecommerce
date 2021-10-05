@@ -15,17 +15,17 @@ $shipping = 0;
                 <ul>
                     <li>
                         <div class="header">
-                            <h4>Shopping Cart (1)</h4>
-                            <!--<input type="checkbox" id="select" name="select" value="">
+                            <h5>Wish List</h5>
+                          <!--  <input type="checkbox" id="select" name="select" value="">
                             <label for="select"> Select all</label><br>-->
                         </div>
                         <div class="content">
                             <?php
                             if (isset($_SESSION['Username'])) {
                                 $userID = $_SESSION['ID'];
-                                $items = getAllFromDB('cart', 'userID', $userID);
-                            } else if (isset($_SESSION['cart'])) {
-                                $items = $_SESSION['cart'];
+                                $items = getAllFromDB('wishes', 'userID', $userID);
+                            } else if (isset($_SESSION['wishes'])) {
+                                $items = $_SESSION['wishes'];
                             }else
                                 $items = array();
                             $subtotal = 0;
@@ -34,7 +34,7 @@ $shipping = 0;
                             foreach ($items as $row) {
                                 $count++;
                                 $itemID = $row['itemID'];
-                                $requestQuantity = $row['Quantity'];
+                                $requestQuantity = 1;
                                 $item = getFromDB('items', 'itemID', $itemID);
                                 $img = $item['Image'];
                                 $name = $item['Name'];

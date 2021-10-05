@@ -121,13 +121,13 @@ function addOrders()
                 $total = $order['Total'];
                 $date = $order['Date'];
                 /*if (!isExistToValue('order', 'ItemID', 'UserID', $itemID, $userID)) {*/
-               /* $stmt = $conn->prepare("SELECT * FROM orders WHERE UserID=? AND ItemID =?");
-                $stmt->execute(array($userID, $itemID));
-                $count = $stmt->rowCount();
-                if ($count == 0) {*/
-                    $stmt = $conn->prepare("INSERT INTO orders(UserID, ItemID,Quantity,Price,Total,Date) VALUES(:userID,:itemID,:quantity, :price,:total ,:date)");
-                    $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'quantity' => $quantity, 'price' => $price, 'total' => $total, 'date' => $date));
-                    decreasesItemQuantity($itemID, $quantity);
+                /* $stmt = $conn->prepare("SELECT * FROM orders WHERE UserID=? AND ItemID =?");
+                 $stmt->execute(array($userID, $itemID));
+                 $count = $stmt->rowCount();
+                 if ($count == 0) {*/
+                $stmt = $conn->prepare("INSERT INTO orders(UserID, ItemID,Quantity,Price,Total,Date) VALUES(:userID,:itemID,:quantity, :price,:total ,:date)");
+                $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'quantity' => $quantity, 'price' => $price, 'total' => $total, 'date' => $date));
+                decreasesItemQuantity($itemID, $quantity);
                 //}
             }
             //unset($_SESSION['order']);
@@ -178,5 +178,25 @@ function orderNotification($itemID)
             $count++;
         }
         return $count;
+    }
+}
+
+
+function registerUser($username,$email, $name, $image, $password)
+{
+    global $conn;
+    $stmt = $conn->prepare("SELECT * FROM users WHERE Username=? OR Email=?");
+    $stmt->execute(array($username, $email));
+    if ($stmt->rowCount() == 0) {
+        $stmt = $conn->prepare("INSERT INTO users(Username, Email,Password, FullName,RegStatus,Date,Image) VALUES(:username,:email,:password,:fullname,0,now(),:image)");
+        $stmt->execute(array(
+            'username' => $username,
+            'email' => $email,
+            'password' => $password,
+            'fullname' => $name,
+            'image' => $image));
+        $_SESSION['register'] = 'true';
+    }else{
+        $_SESSION['register'] = 'false';
     }
 }

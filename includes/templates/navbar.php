@@ -80,23 +80,27 @@ if ($_SESSION['lang'] == "en") {
                     <li class="dropdown ">
                         <a class="nav-link" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php echo $_SESSION['Username']; ?>
-                            <img
-                                    src="https://mdbootstrap.com/img/new/avatars/2.jpg"
-                                    class="rounded-circle"
-                                    height="25"
-                                    alt=""
-                                    loading="lazy"
-                            />
+                            <?php echo $_SESSION['FullName']; ?>
+                            <img src="
+                            <?php
+                            if (isset($_SESSION['Image']))
+                                echo $_SESSION['Image'];
+                            else  echo 'layout/images/account.webp';
+                            ?>"
+                                 alt=""
+                                 loading="lazy"
+                                 height="30"
+                                 class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item"
-                                   href="members.php?page=Edit&userid=<?php echo $_SESSION['ID']; ?>">Edit
-                                    Profile</a>
+                            <li>
+                                <a class="dropdown-item"
+                                   href="account.php?page=Edit&userid=<?php if (isset($_SESSION['ID']))echo $_SESSION['ID']; ?>"><i class="fas fa-user-circle"></i>  Account</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">Sittings</a></li>
-                            <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
-                            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                            <li><a class="dropdown-item" href="orders.php"><i class="fa fa-first-order"></i>  My Orders</a></li>
+                            <li><a class="dropdown-item" href="wish.php"><i class="fa fa-heart"></i>  Wish List</a></li>
+                            <li><a class="dropdown-item" href="settings.php"><i class="fas fa-cogs"></i>  Settings</a></li>
+                            <li><a class="dropdown-item" href="logout.php"><i class="fa fa-sign-out-alt"></i>  Sign Out</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -116,7 +120,7 @@ if ($_SESSION['lang'] == "en") {
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="login.php">Login</a></li>
-                            <li><a class="dropdown-item" href="registerUser.php">Join</a></li>
+                            <li><a class="dropdown-item" href="register.php">Join</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -118,7 +118,7 @@
                         <div class="account container">
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-6 button-col">
-                                    <a href="registerUser.php" class="join-btn btn">Join</a>
+                                    <a href="register.php" class="join-btn btn">Join</a>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-6 button-col">
                                     <a href="login.php" class="sign-btn btn">Sign in</a>

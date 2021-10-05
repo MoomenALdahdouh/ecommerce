@@ -1,67 +1,90 @@
 /*Start login box*/
 .login-body {
-    background-image: url(/layout/images/blur-bg1.jpg);
+    /*background-image: url(/layout/images/b4.jpg);
     background-repeat: no-repeat;
     background-position: right top;
     background-attachment: fixed;
-    color: #FFF;
     width: 100%;
-    height: 100%;
+    height: 100%;*/
+    color: #FFF;
 }
 
-.login-box h2{
+.login-box h2 {
     margin-bottom: 30px;
 }
 
-.login-box ul{
+.login-box ul {
     list-style-type: none;
     padding: 0;
 }
 
-.login-box ul li input{
+.login-box ul li input {
     width: 100%;
     padding: 8px;
     font-size: 18px;
     margin: 15px 0 15px 0;
     height: 40px;
-    background: #ffffff;
-   border-radius: 0;
-}
-
-.login-box {
-    width: 350px;
-    margin: auto;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.42);
-    padding: 30px;
-    position: relative;
-    top: 150px;
-}
-
-.login-box .form .btn{
-    background: #4786e8;
-    color: #FFF;
     border-radius: 0;
 }
 
+.login-box {
+    width: 400px;
+    margin: auto;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.62);
+    padding: 50px 50px 10px 50px;
+    position: relative;
+    top: 100px;
+    text-decoration: none;
+    border-radius: 16px;
+}
 
-/*End login box*/
+.login-box .form .button-css {
+    text-decoration: none;
+    border-radius: 0;
+}
 
-/*Start login box*/
-/*End login box*/
+.login-box .form .button-google {
+    text-decoration: none;
+    border-radius: 0;
+    width: 100%;
+}
 
-/*Start login box*/
-/*End login box*/
+.login-box .form .register {
+    text-decoration: none;
+    color: #c5c5c5;
+    font-weight: bold;
+}
 
-/*Start login box*/
-/*End login box*/
+.login-box .form .forget-password {
+    text-decoration: none;
+    color: #6a8ce3;
+    font-weight: bold;
+}
 
-/*Start login box*/
-/*End login box*/
+.login-box .form .register:hover {
+    text-decoration: none;
+    color: #FFF;
+}
 
-/*Start login box*/
-/*End login box*/
+.login-box .form .forget-password:hover {
+    text-decoration: none;
+    color: #316df6;
+}
 
-/*Start login box*/
-/*End login box*/
+.login-box .form .for-reg {
+    padding: 0;
+    margin: auto;
+}
+
+.login-box .form .row {
+    padding: 0;
+    margin: auto;
+}
+
+.login-box .form .container {
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
 

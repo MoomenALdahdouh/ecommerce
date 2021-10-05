@@ -3,7 +3,7 @@ or you can use the same page for user but you must change the GroupID in the que
 <?php
 session_start();//It's like share preference in android to save the user login or any other data
 $noNavbar = '';//here this var to not allow showing navbar here
-$pageTitle = 'Login'; //Name this page you need to include this line in all page in the project
+$pageTitle = 'Register'; //Name this page you need to include this line in all page in the project
 include('initmain.php');//Include init page to include all path and another required includes must include this file in all page in the project
 require_once "connect.php";
 require_once "config.php";
@@ -27,41 +27,39 @@ if (isset($_SESSION['Username'])) { //Check If the admin login or not if is logi
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $email = $_POST['email'];
+    $fullname = $_POST['fullname'];
     $hashedPass = sha1($password);
     //Get Group ID for the user login
-    if (!empty($username) && !empty($hashedPass)) {
-        $stmt = $conn->prepare("SELECT * FROM users WHERE Username = ? OR Email=? AND Password = ? LIMIT 1");
-        $stmt->execute(array($username,$username, $hashedPass));
-        $row = $stmt->fetch();
-        $count = $stmt->rowCount();
-        if ($count > 0) { //Check if the account is exists
-            $error = '';
-            $sol = '';
-            $groupID = $row['GroupID'];
-            $_SESSION['Username'] = $username; //Register session name
-            $_SESSION['ID'] = $row['UserID']; //Register session ID
-            $_SESSION['GroupID'] = $groupID; //Register session GroupID
-            $_SESSION['FullName'] = $row['FullName'];
-            //Select main windows to show for all custom user
-            if ($groupID == 0) {//user
-                header('Location: index.php');//Redirect To Dashboard Page
-            } elseif ($groupID == 1) {//admin
-                header('Location: admin/dashboard.php');//Redirect To Dashboard Page
-            } elseif ($groupID == 2) {//seller
-                header('Location: seller/dashboard.php');//Redirect To Dashboard Page
+    if (!empty($username) && !empty($hashedPass) && !empty($email)) {
+        registerUser($username,$email,$fullname,'',$hashedPass);
+        if (isset($_SESSION['register'])){
+            if ($_SESSION['register'] == 'false'){
+                $error = "This account registered before!";
+            }else{
+                $_SESSION['Username'] = $username;
+                $_SESSION['FullName'] = $fullname;
+                $_SESSION['Image'] = $image;
+                $_SESSION['Email'] = $email;
+                $_SESSION['GroupID'] = 0;
+                $username = "";
+                $password = "";
+                $email = "";
+                $fullname = "";
+                $hashedPass = "";
+                header("location:index.php");
             }
-            exit();
-        } else {
-            $error = "You have not account or write correct username and password";
-            $sol = 'Register Now';
         }
+    }else{
+        $error = "You have not account";
+        $sol = 'Register Now';
     }
 }
 ?>
 <!--Start login box-->
 <div class="login-body">
     <div class="login-box">
-        <h2>Login</h2>
+        <h2>Register</h2>
         <p class="text-danger"><?php echo $error; ?> <a
                     href='register.php'><strong> <?php echo $sol; ?></strong></a></p>
         <form class="form row" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
@@ -71,28 +69,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                            autocomplete="off">
                 </li>
                 <li>
+                    <input class="form-control" type="text" name="fullname" placeholder="Full Name"
+                           autocomplete="off">
+                </li>
+                <li>
+                    <input class="form-control" type="email" name="email" placeholder="Email"
+                           autocomplete="off">
+                </li>
+                <li>
                     <input class="form-control" type="password" name="password" placeholder="Password"
                            autocomplete="off">
                 </li>
                 <li>
-                    <div class="container">
-                        <div class="row">
-                            <div class="for-reg col text-start">
-                                <a class="register" href="register.php">Register Now!</a>
-                            </div>
-                            <div class="for-reg col text-end">
-                                <a class="forget-password" href="forgetPassword.php">Forget Password</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </li>
-                <li>
-                    <input class="btn btn-primary button-css" type="submit" name="submit" value="SIGN IN">
+                    <input class="btn btn-primary button-css" type="submit" name="submit" value="REGISTER">
                 </li>
                 <li>
                     <a href="<?php echo $authUrl; ?>" class="btn btn-danger button-google"><i
-                                class="fa fa-google"></i> Sign In By Google</a>
+                                class="fa fa-google"></i> Register By Google</a>
+                </li>
+                <li>
+                    <p style="margin-top: 20px">Has account? <a href="login.php">Login</a></p>
                 </li>
             </ul>
         </form>

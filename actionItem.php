@@ -82,8 +82,8 @@ function addToCart($conn, $itemID, $quantity)
     if (isset($_SESSION['Username'])) {
         $userID = $_SESSION['ID'];
         if (!isExist('cart', 'itemID', $itemID)) {
-            $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date,Quantity) VALUES(:userID,:itemID,now())");
-            $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'Quantity' => $quantity));
+            $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date,Quantity) VALUES(:userID,:itemID,now(),:quantity)");
+            $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'quantity' => $quantity));
             echo cartNotification();
         } else
             echo 'exist';
@@ -115,7 +115,7 @@ function addToCart($conn, $itemID, $quantity)
     }
 }
 
-function addToWishes($conn, $itemID)
+function addToWishes($conn, $itemID,$quantity)
 {
     if (isset($_SESSION['Username'])) {
         $userID = $_SESSION['ID'];

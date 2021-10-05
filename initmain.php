@@ -4,8 +4,8 @@ include 'connect.php';
 $lang = 'includes/languages/';
 $tpl = 'includes/templates/';
 $func = 'includes/functions/';
-$css = 'layout/css/';
-$js = 'layout/js/';
+$cssm = 'layout/css/';
+$jsm = 'layout/js/';
 $foaw = 'ttps://kit.fontawesome.com/deeee70e6c.js';
 include $func . 'functions.php';//All functions you need in the project
 if (isset($_SESSION['lang'])) {
