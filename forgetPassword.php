@@ -1,6 +1,19 @@
 <!--Home page to start admin section in the project
 or you can use the same page for user but you must change the GroupID in the query $stmt -->
 <?php
+//-------------------------Verification mail -------------------------
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+require 'vendor/phpmailer/phpmailer/src/Exception.php';
+require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require 'vendor/phpmailer/phpmailer/src/SMTP.php';
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+//-----------------------------------------------------------------------
+
+
 session_start();//It's like share preference in android to save the user login or any other data
 $noNavbar = '';//here this var to not allow showing navbar here
 $pageTitle = 'Login'; //Name this page you need to include this line in all page in the project
@@ -28,6 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $hashedPass = sha1($password);
+    $_SESSION['Email'] = $username;
+    $_SESSION['Username'] = $username;
+    $_SESSION['HashPassword'] = $hashedPass;
     //Get Group ID for the user login
     if (!empty($username) && !empty($hashedPass)) {
         $stmt = $conn->prepare("SELECT * FROM users WHERE Username = ? OR Email=? LIMIT 1");
@@ -36,9 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $count = $stmt->rowCount();
         if ($count > 0) { //Check if the account is exists
             $userID = $row['UserID'];
-            $stmt = $conn->prepare("UPDATE users SET Password = ? WHERE UserID = ?");
+            $email = $row['Email'];
+            $name = $row['FullName'];
+            $mail = new PHPMailer(true);
+            sendEmail($mail,$email,$name);
+            header('Location: verification.php');
+            /*$stmt = $conn->prepare("UPDATE users SET Password = ? WHERE UserID = ?");
             $stmt->execute(array($hashedPass, $userID));
-            header('Location: login.php');
+            header('Location: login.php');*/
         } else {
             $error = "You have not account";
             $sol = 'Register Now';

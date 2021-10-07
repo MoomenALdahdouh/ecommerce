@@ -35,8 +35,8 @@ if (isset($_GET['code'])) {
     $_SESSION['FullName'] = $name;
     $_SESSION['Image'] = $image;
     $_SESSION['Email'] = $email;
-    //Generate Code verification
     $mail = new PHPMailer(true);
+    //Generate Code verification
     /*try {
         //Server settings
         $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
@@ -92,15 +92,16 @@ if (isset($_SESSION['Username'])) { //Check If the admin login or not if is logi
                 include "indexhtml.php";
                 checkCartSession();
                 //Here when user login by google, so we create account for him automatic
-
                 //registerUser($email,$email,$name,$image,'',$verification_code);
             } elseif ($_SESSION['GroupID'] == 1) {//admin
                 header('Location: admin/dashboard.php');//Redirect To Dashboard Page
             } elseif ($_SESSION['GroupID'] == 2) {//seller
                 header('Location: seller/dashboard.php');//Redirect To Dashboard Page
             }
-        } else
+        } else {
+            $_SESSION['Verification'] = 'Account';
             header("location:verification.php");
+        }
     } else {
         include 'connect.php';
         include 'includes/functions/functions.php';

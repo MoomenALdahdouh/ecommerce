@@ -1,7 +1,10 @@
 <?php
 session_start();
 include 'connect.php';
+echo 'whelcom';
+$conn->prepare("DELETE FROM cart WHERE itemID = '9' AND UserID='29'")->execute();
 
+/*
 if (isset($_SESSION['order'])) {
     echo 'exist';
     $count = 0;
@@ -15,5 +18,5 @@ if (isset($_SESSION['order'])) {
     }
 } else {
     echo 'not exist';
-}
+}*/
 

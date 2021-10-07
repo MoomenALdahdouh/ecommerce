@@ -68,10 +68,10 @@ $(function () {
                     quantity = currentQuantity;
                 else if (quantity == 0) {
                     quantity = 1;
-                    calculateSummery(price, quantity, oldQuantity);
                 }
                 input.value = quantity;
-                console.log(input.value)
+                calculateSummery(price, quantity, oldQuantity);
+                //console.log(price, quantity, oldQuantity)
                 let inputItemID = e.target.parentNode.querySelector('#item-id');
                 let itemID = inputItemID.value;
                 let action = 'update';

@@ -8,6 +8,7 @@ include('initmain.php');//Include init page to include all path and another requ
 require_once "connect.php";
 //----------------------------By Google-----------------------------
 require_once "config.php";
+
 //-------------------------Verification mail -------------------------
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -41,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hashedPass = sha1($password);
     //Get Group ID for the user login
     if (!empty($username) && !empty($hashedPass) && !empty($email)) {
-        //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
+        //Create an instance; passing `true` enables exceptions
         //generateVerificationCode($mail);
         /*try {
             //Server settings
@@ -78,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }*/
-        registerAndSendVerificationCode($mail,$username, $email, $fullname, '', $hashedPass);
+        registerAndSendVerificationCode($mail, $username, $email, $fullname, '', $hashedPass);
         /*registerUser($username, $email, $fullname, '', $hashedPass,$verification_code);*/
         if (isset($_SESSION['register'])) {
             if ($_SESSION['register'] == 'false') {
@@ -97,15 +98,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $hashedPass = "";
                 header("location:index.php");
                 //Check status
-               /* $stmt = $conn->prepare("SELECT * FROM users WHERE Username = ? OR Email=? AND RegStatus = ? LIMIT 1");
-                $stmt->execute(array($username,$email, '1'));
-                $row = $stmt->fetch();
-                $count = $stmt->rowCount();
-                if ($count > 0) {
-                    header("location:index.php");
-                } else {
-                    header("location:verification.php");
-                }*/
+                /* $stmt = $conn->prepare("SELECT * FROM users WHERE Username = ? OR Email=? AND RegStatus = ? LIMIT 1");
+                 $stmt->execute(array($username,$email, '1'));
+                 $row = $stmt->fetch();
+                 $count = $stmt->rowCount();
+                 if ($count > 0) {
+                     header("location:index.php");
+                 } else {
+                $_SESSION['Verification'] = 'Account';
+                     header("location:verification.php");
+                 }*/
 
             }
         }

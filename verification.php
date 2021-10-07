@@ -34,10 +34,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $row = $stmt->fetch();
         $count = $stmt->rowCount();
         if ($count > 0) { //Check if the account is exists
-            $userID = $row['UserID'];
-            $stmt = $conn->prepare("UPDATE users SET RegStatus = ?,EmailVerfiedAt = now() WHERE UserID = ?");
-            $stmt->execute(array('1', $userID));
-            header("location:index.php");
+            if (isset($_SESSION['Verification'])) {
+                if ($_SESSION['Verification'] == 'Password') {
+                    $hashedPass = $_SESSION['HashPassword'];
+                    $stmt = $conn->prepare("UPDATE users SET Password = ? WHERE (Email = ? OR Username=?)");
+                    $stmt->execute(array($hashedPass, $email, $email));
+                    unset($_SESSION['Username']);
+                    unset($_SESSION['ID']);
+                    unset($_SESSION['Email']);
+                    unset($_SESSION['HashPassword']);
+                    header('Location: login.php');
+                } else if ($_SESSION['Verification'] == 'Account') {
+                    $userID = $row['UserID'];
+                    $stmt = $conn->prepare("UPDATE users SET RegStatus = ?,EmailVerfiedAt = now() WHERE UserID = ?");
+                    $stmt->execute(array('1', $userID));
+                    header("location:index.php");
+                }
+            }
         } else {
             $error = "You have not account or write correct username and password";
             $sol = 'Register Now';
@@ -63,7 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input class="btn btn-primary button-css" type="submit" name="submit" value="CONFIRM">
                 </li>
                 <li>
-                    <a href="redirect.php" style="width: 100%;" class="btn btn-outline-primary button-css">Back to Home</a>
+                    <a href="redirect.php" style="width: 100%;" class="btn btn-outline-primary button-css">Back to
+                        Home</a>
                 </li>
             </ul>
         </form>

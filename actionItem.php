@@ -46,7 +46,7 @@ function getItemsFromDB()
     if (isset($_SESSION['ID'])) {
         $userID = $_SESSION['ID'];
         echo json_encode(getAllFromDB('cart', 'userID', $userID));
-    }else if (isset($_SESSION['cart'])){
+    } else if (isset($_SESSION['cart'])) {
         echo json_encode($_SESSION['cart']);
     }
 }
@@ -54,16 +54,17 @@ function getItemsFromDB()
 
 function buyFromCart($conn, $itemID, $quantity)
 {
-include 'founds.php';
+    include 'founds.php';
 }
 
 function removeFromCart($conn, $itemID)
 {
     if (isset($_SESSION['Username'])) {
         $userID = $_SESSION['ID'];
-        $stmt = $conn->prepare("DELETE FROM cart WHERE UserID = :userID itemID = :id");
+        $conn->prepare("DELETE FROM cart WHERE itemID = $itemID AND UserID=$userID")->execute();
+        /*$stmt = $conn->prepare("DELETE FROM cart WHERE UserID = :userID AND itemID = :id");
         $stmt->bindParam("userID", $userID, ":id", $itemID);
-        $stmt->execute();
+        $stmt->execute();*/
     } else if (isset($_SESSION['cart'])) {
         $count = 0;
         foreach ($_SESSION['cart'] as $cart) {
@@ -81,7 +82,7 @@ function addToCart($conn, $itemID, $quantity)
 {
     if (isset($_SESSION['Username'])) {
         $userID = $_SESSION['ID'];
-        if (!isExist('cart', 'itemID', $itemID)) {
+        if (!isExist('cart', 'itemID', $itemID, 'UserID', $userID)) {
             $stmt = $conn->prepare("INSERT INTO cart(UserID, itemID,Date,Quantity) VALUES(:userID,:itemID,now(),:quantity)");
             $stmt->execute(array('userID' => $userID, 'itemID' => $itemID, 'quantity' => $quantity));
             echo cartNotification();
@@ -115,18 +116,19 @@ function addToCart($conn, $itemID, $quantity)
     }
 }
 
-function addToWishes($conn, $itemID,$quantity)
+function addToWishes($conn, $itemID)
 {
     if (isset($_SESSION['Username'])) {
         $userID = $_SESSION['ID'];
-        if (!isExist('wishes', 'itemID', $itemID)) {
+        if (!isExist('wishes', 'itemID', $itemID, 'UserID', $userID)) {
             $stmt = $conn->prepare("INSERT INTO wishes(UserID, itemID,Date) VALUES(:userID,:itemID,now())");
             $stmt->execute(array('userID' => $userID, 'itemID' => $itemID));
             echo 'add';
         } else {
-            $stmt = $conn->prepare("DELETE FROM wishes WHERE itemID = :id");
+            $conn->prepare("DELETE FROM wishes WHERE itemID = $itemID AND userID=$userID")->execute();
+            /*$stmt = $conn->prepare("DELETE FROM wishes WHERE itemID = :id");
             $stmt->bindParam(":id", $itemID);
-            $stmt->execute();
+            $stmt->execute();*/
             echo 'remove';
         }
     } else {
@@ -152,11 +154,11 @@ function updateQuantity($conn, $itemID, $quantity)
     }
 }
 
-function isExist($from, $where, $value)
+function isExist($from, $where, $value, $where2, $value2)
 {
     global $conn;
-    $stmt = $conn->prepare("SELECT * FROM $from WHERE $where=?");
-    $stmt->execute(array($value));
+    $stmt = $conn->prepare("SELECT * FROM $from WHERE $where=? AND $where2=?");
+    $stmt->execute(array($value, $value2));
     if ($stmt->rowCount() > 0)
         return true;
     else

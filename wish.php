@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-$pageTitle = 'Cart';
+$pageTitle = 'My Wishes';
 include "initmain.php";
 $count = 0;
 $subtotal = 0;

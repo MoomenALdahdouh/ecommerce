@@ -186,7 +186,7 @@ function orderNotification($itemID)
 }
 
 
-function registerUser($username,$email, $name, $image, $password,$verification_code)
+function registerUser($username, $email, $name, $image, $password, $verification_code)
 {
     global $conn;
     $stmt = $conn->prepare("SELECT * FROM users WHERE Username=? OR Email=?");
@@ -199,14 +199,15 @@ function registerUser($username,$email, $name, $image, $password,$verification_c
             'password' => $password,
             'fullname' => $name,
             'image' => $image,
-            'verificationCode'=>$verification_code));
+            'verificationCode' => $verification_code));
         $_SESSION['register'] = 'true';
-    }else{
+    } else {
         $_SESSION['register'] = 'false';
     }
 }
 
-function registerAndSendVerificationCode($mail,$username,$email, $name, $image, $password){
+function registerAndSendVerificationCode($mail, $username, $email, $name, $image, $password)
+{
     try {
         //Server settings
         $mail->SMTPDebug = 0;                      //Enable verbose debug output
@@ -217,20 +218,8 @@ function registerAndSendVerificationCode($mail,$username,$email, $name, $image, 
         $mail->Password = 'moomen.88';                               //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
         $mail->Port = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-        //Recipients
         $mail->setFrom('msssa875@gmail.com', 'EcoExpress.com');
         $mail->addAddress($email, $name);     //Add a recipient
-        //$mail->addAddress('ellen@example.com');               //Name is optional
-       /* $mail->addReplyTo('info@example.com', 'Information');
-        $mail->addCC('cc@example.com');
-        $mail->addBCC('bcc@example.com');
-
-        //Attachments
-        $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-        $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name*/
-
-        //Content
         $mail->isHTML(true);                                  //Set email format to HTML
         $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
         $mail->Subject = 'Email verification';
@@ -238,7 +227,71 @@ function registerAndSendVerificationCode($mail,$username,$email, $name, $image, 
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         $mail->send();
 
-        registerUser($username,$email, $name, $image, $password,$verification_code);
+        registerUser($username, $email, $name, $image, $password, $verification_code);
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
+
+function sendEmail($mail, $email, $name)
+{
+    global $conn;
+    try {
+        $mail->SMTPDebug = 0;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host = 'smtp.gmail.com';                     //Set the SMTP server to send through
+        $mail->SMTPAuth = true;                                   //Enable SMTP authentication
+        $mail->Username = 'msssa875@gmail.com';                     //SMTP username
+        $mail->Password = 'moomen.88';                               //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+        $mail->Port = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        $mail->setFrom('msssa875@gmail.com', 'EcoExpress.com');
+        $mail->addAddress($email, $name);     //Add a recipient
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
+        $mail->Subject = 'Email verification';
+        $mail->Body = 'Your verification code is <b>' . $verification_code . '</b>';
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->send();
+        $stmt = $conn->prepare("UPDATE users SET VerificationCode = ? WHERE (Email = ? OR Username=?)");
+        $stmt->execute(array($verification_code, $email, $email));
+        $_SESSION['Verification'] = 'Password';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
+
+function sendEmailBuyOrder($mail, $email, $name, $orderId)
+{
+    global $conn;
+    try {
+        $mail->SMTPDebug = 0;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host = 'smtp.gmail.com';                     //Set the SMTP server to send through
+        $mail->SMTPAuth = true;                                   //Enable SMTP authentication
+        $mail->Username = 'msssa875@gmail.com';                     //SMTP username
+        $mail->Password = 'moomen.88';                               //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+        $mail->Port = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        $mail->setFrom('msssa875@gmail.com', 'EcoExpress.com');
+        $mail->addAddress($email, $name);     //Add a recipient
+        $mail->isHTML(true); //Set email format to HTML
+        $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
+        $mail->Subject = 'Good news regarding your order';
+        $mail->Body = '<a href="http://localhost/ecommerce/">
+                           <h3><span style="color: #f89500">Eco</span><span style="color: #c91e1e">Express</span></h3>
+                       </a>
+                       <strong>Expect to see your package soon!</strong><br>
+                       <p>Hi ' . $name . '</p><br>
+                       <p>Order <a href="http://localhost/ecommerce/item.php?itemid=' . $orderId . '">35' . $orderId . '89</a> has been shipped! You can click below to track your package, check delivery status or see more details.</p>
+                       <p>(Note: It may take up to 24 hours to see tracking information.)</p>
+                       <p>If you have any questions, please <a href="http://localhost/ecommerce/support.php"><strong>let us know!</strong></a></p><br>
+                       <iframe width="200" height="200" src="http://localhost/ecommerce/item.php?itemid=' . $orderId . '" title="Order"></iframe>';
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->send();
+        $stmt = $conn->prepare("UPDATE users SET VerificationCode = ? WHERE (Email = ? OR Username=?)");
+        $stmt->execute(array($verification_code, $email, $email));
+        $_SESSION['Verification'] = 'Password';
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
