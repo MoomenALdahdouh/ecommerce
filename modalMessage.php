@@ -78,20 +78,36 @@
                         </div>
                         <div class="card-footer">
                             <form class="content" method="POST" action="founds.php">
-                                <input id="itemID-founds" class="input" type="hidden" name="ItemID" value="">
-                                <input id="quantity-founds" class="input" type="hidden" name="Quantity" value="">
-                                <input id="price-founds" class="input" type="hidden" name="Price" value="">
-                                <input id="total-founds" class="input" type="hidden" name="Total" value="0">
-                                <input type="submit" id="buy-all-items" style="width: 100%;" class="btn btn-danger"
-                                       value="CONFIRM AND BUY">
-                            </form>
+                                <h6><i class="fas fa-money-check-alt"></i> Payment Methods</h6>
+                                <div class="item-row col">
+                                    <label>
+                                        <input type="radio" name="method" value="Paypal" checked>
+                                        <i class="fa fa-paypal"> Paypal</i>
+                                    </label>
+
+                                </div>
+                                <div class="item-row col">
+                                    <label>
+                                        <input type="radio" name="method" value="MyFatoorah">
+                                        <i class="fab fa-google-wallet"> MyFatoorah</i>
+                                    </label>
+                                </div>
                         </div>
                     </div>
+                    <input id="itemID-founds" class="input" type="hidden" name="ItemID" value="">
+                    <input id="quantity-founds" class="input" type="hidden" name="Quantity" value="">
+                    <input id="price-founds" class="input" type="hidden" name="Price" value="">
+                    <input id="total-founds" class="input" type="hidden" name="Total" value="0">
+                    <input type="submit" id="buy-all-items" style="width: 100%;" class="btn btn-danger"
+                           value="CONFIRM AND BUY">
+                    </form>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button id="close" class="btn btn-outline-danger" type="button" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
+    <div class="modal-footer">
+        <button id="close" class="btn btn-outline-danger" type="button" data-bs-dismiss="modal">Cancel</button>
+    </div>
+</div>
+</div>
 </div>

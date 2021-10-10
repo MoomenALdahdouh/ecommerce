@@ -24,6 +24,7 @@ if (isset($_SESSION['lang'])) {
     <link rel="stylesheet" href="<?php echo $cssm; ?>cart.css"/>
     <link rel="stylesheet" href="<?php echo $cssm; ?>order.css"/>
     <link rel="stylesheet" href="<?php echo $cssm; ?>navbar.css"/>
+    <link rel="stylesheet" href="<?php echo $cssm; ?>orderTracking.css"/>
 </head>
 <!--Open the body here and close it in the footer php file-->
 <body id="body" style="direction: <?php echo $dir;?>">

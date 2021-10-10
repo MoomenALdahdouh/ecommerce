@@ -48,9 +48,10 @@ $shipping = 0;
                                 echo '<div class="item-orders"><div class="row">';
                                 echo "<div class='col-left col-sm-12 col-md-6 col-lg-6'><img class='card card-img-top' src='uploads/$img' alt=''></div>";
                                 echo "<div class='col-right col-sm-12 col-md-6 col-lg-6 card-body'>
-                                            <p>$name</p>
-                                            <h6 style='color: #0a53be'>Buy Information:</h6>
-                                            <p>Date of Buy <strong id='date-of-buy'>$date</strong></p>
+                                            <p>Order ID:    $itemID <a style='color: #0a53be' href='orderTracking.php?itemid=$itemID'> View Detail</a></p>
+                                            <p><strong>$name</strong></p>
+                                            <h6 style='color: #be2429'>Buy Information:</h6>
+                                            <p>Date of Buy: <strong id='date-of-buy'>$date</strong></p>
                                             <p>Price: US $<strong id='item-price'>$price</strong></p>
                                             <p>Quantity: <strong id='item-quantity'>$quantity</strong></p>
                                             <p>Founds: US $<strong id='item-founds'>$found</strong></p>
